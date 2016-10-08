@@ -1,0 +1,74 @@
+* {
+    box-sizing: border-box;
+}
+
+.app {
+  text-align: center;
+}
+
+.App-logo {
+  animation: App-logo-spin infinite 20s linear;
+  height: 80px;
+}
+
+.App-header {
+  background-color: #222;
+  height: 150px;
+  padding: 20px;
+  color: white;
+}
+
+.App-intro {
+  font-size: large;
+}
+
+@keyframes App-logo-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Header */
+header {
+    height: 80px;
+    background-color: blue;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* Main */
+
+.main {
+    height: calc(100vh - 80px);
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 25%;
+    width: calc(400px);
+}
+
+/* Sidebar - Location */
+.sidebar-location {
+    margin: 20px;
+} 
+
+.sidebar-location input[type="text"] {
+    width: 100%;
+    border: none;
+    padding: 20px 30px;
+    line-height: 20px;
+    font-size: 20px;
+    background: #EFEFEF;
+    border-radius: 30px;
+    outline: none;
+}
+
+/* Map */
+.map {
+    background-color: #EFEFEF;
+    width: 75%;
+    width: calc(100% - 400px);
+}
