@@ -21,6 +21,6 @@ export default class Location extends Component {
     }
 
     lookupLocation() {
-
+        
     }
 }
