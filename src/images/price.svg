@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="-450 252 58 64">
+	<style type="text/css">
+		.st0{fill:#FFFFFF;}
+		.st1{fill:#2B9ED8;}
+		.st2{font-family:'Arial-BoldMT';}
+		.st3{font-size:11px;}
+		.st4{fill:#A5A5A5;}
+	</style>
+	<polygon class="st0" points="-450,252 -450,310 -423.7,310 -421,316 -418.3,310 -392,310 -392,252 	"/>
+	<rect x="-450" y="252" class="st1" width="58" height="19.3"/>
+	<text transform="matrix(1 0 0 1 -437.8086 265.625)" class="st0 st2 st3">PRICE</text>
+	<image style="overflow:visible;" width="449" height="448" xlink:href="D50D63DE.jpg"  transform="matrix(6.250000e-002 0 0 6.250000e-002 -435.0313 276.5417)">
+	</image>
+	<path class="st4" d="M-450,252v19.1v0.5V310h26.3l2.7,6l2.7-6h26.3v-38.4v-0.5V252H-450z M-392.5,309.5h-25.8h-0.3l-0.1,0.3l-2.3,5
+		l-2.3-5l-0.1-0.3h-0.3h-25.8v-37.9h57V309.5z M-449.5,271.1v-18.6h57v18.6H-449.5z"/>
+</svg>

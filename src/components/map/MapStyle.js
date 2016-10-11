@@ -1,4 +1,4 @@
-export let mapStyles = [
+let mapStyles = [
   {
     "featureType": "administrative.land_parcel",
     "stylers": [
@@ -102,4 +102,6 @@ export let mapStyles = [
       }
     ]
   }
-]
+];
+
+export default mapStyles;
