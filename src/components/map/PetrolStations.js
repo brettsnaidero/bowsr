@@ -129,6 +129,11 @@ export default class PetrolStations extends Component {
           myLocation: {
               lat: -33.025278,
               lng: 147.136111
+          },
+          inState: {
+              lowest: 0,
+              highest: 0,
+              average: 0
           }
         }
     }
@@ -143,13 +148,39 @@ export default class PetrolStations extends Component {
         //         this.setState({
         //             markers: data
         //         });
+        //     })
+        //     .error(err => {
+        //          console.log(err);
         //     });
 
         // Local version
         self.setState({
-            markers: TestData
+            markers: TestData,
+            inState: {
+                lowest: 0,
+                highest: 0,
+                average: 0
+            }
         });
 
+        let highest = 0, lowest = 0, average = 0;
+        Object.keys(self.state.markers).forEach((marker, index) => {
+            if ( self.state.markers[index].Price > highest ) {
+                highest = self.state.markers[index].Price;
+            }
+            if ( self.state.markers[index].Price < lowest ) {
+                lowest = self.state.markers[index].Price;
+            }
+        });
+        self.setState({
+            inArea: {
+                lowest: lowest,
+                highest: highest,
+                average: average
+            }
+        });
+
+        // Get user geolocation if available
         if ("geolocation" in navigator) {
             /* geolocation is available */
             let options = {
