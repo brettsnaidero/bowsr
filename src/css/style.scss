@@ -1,0 +1,19 @@
+/** Exports to ../css/style.css **/
+
+/*** Reset ***/
+@import "base/_reset";
+
+/*** Foundation
+@import "foundation/_main";
+ ***/
+
+/*** Mixins ***/
+@import "mixins/_colours";
+@import "mixins/_sprite";
+@import "mixins/_other";
+
+/*** ***/
+@import "base/_fonts";
+@import "base/_screen";
+
+/*** Sections ***/

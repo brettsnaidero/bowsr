@@ -13,7 +13,7 @@ export default class Location extends Component {
         return (
             <div className="sidebar-location">
                 <input type="text"
-                    placeholder="Search location by postcode"
+                    placeholder="Search by postcode..."
                     onChange={this.lookupLocation.bind(this)}
                 />
             </div>
@@ -21,6 +21,6 @@ export default class Location extends Component {
     }
 
     lookupLocation() {
-        
+
     }
 }

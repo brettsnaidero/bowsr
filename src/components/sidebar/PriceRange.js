@@ -10,17 +10,16 @@ export default class PriceRange extends Component {
     }
 
     render() {
-        console.log(this.refs);
         return (
             <div className="sidebar-pricerange">
                 <div>
-                    {/* Lowest: {this.refs.map.state.inArea.lowest} */}
+                    Lowest: {this.props.lowest}
                 </div>
                 <div>
-                    {/* Highest: {self.refs.map.state.inArea.highest} */}
+                    Highest: {this.props.highest}
                 </div>
                 <div>
-                    {/* Average: {self.refs.map.state.inArea.average} */}
+                    Average: {this.props.average}
                 </div>
             </div>
         )
