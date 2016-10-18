@@ -3,10 +3,6 @@
 /*** Reset ***/
 @import "base/_reset";
 
-/*** Foundation
-@import "foundation/_main";
- ***/
-
 /*** Mixins ***/
 @import "mixins/_colours";
 @import "mixins/_sprite";
@@ -16,4 +12,9 @@
 @import "base/_fonts";
 @import "base/_screen";
 
-/*** Sections ***/
+/*** Atoms ***/
+@import "atoms/_header";
+@import "atoms/_sidebar";
+
+/*** Plugins ***/
+@import "plugins/_select";

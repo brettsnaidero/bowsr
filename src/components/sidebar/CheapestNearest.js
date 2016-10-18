@@ -16,7 +16,7 @@ export default class CheapestNearest extends Component {
 
     render() {
         return (
-            <div>
+            <div className="sidebar-bottom">
               <h3>Cheapest in view:</h3>
               { this.findCheapest() }
             </div>
@@ -39,7 +39,7 @@ export default class CheapestNearest extends Component {
             return (
               <div className="sidebar-station">
                   <div className="icon">
-                    <img src={mapIcons[brand]} />
+                    <img src={mapIcons[brand]} alt={brand} />
                   </div>
                   <div className="name">{inViewMarkers[lowestIndex].Name}</div>
                   <div className="price">{inViewMarkers[lowestIndex].Price}</div>

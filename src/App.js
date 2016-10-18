@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-import './styles/App.css';
+import './css/style.scss';
 
 import _ from 'lodash';
 
@@ -30,7 +30,15 @@ export default class App extends Component {
 
         this.state = {
           markers: null,
-          inViewMarkers: null
+          inViewMarkers: null,
+
+		  usingGeoLocation: false,
+		  myLocation: {
+              lat: -33.8688,
+              lng: 151.2093
+          },
+
+		  fuelType: 'U10'
         }
     }
 
@@ -56,6 +64,61 @@ export default class App extends Component {
 
         self.calculateThings(TestData);
     }
+
+	getLocation() {
+		let self = this;
+		// Get user geolocation if available
+        if ('geolocation' in navigator) {
+            /* geolocation is available */
+            let options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
+
+            function success(pos) {
+                let crd = pos.coords;
+
+                let myLocation = {
+                    lat: crd.latitude,
+                    lng: crd.longitude
+                }
+
+                self.setState({
+					usingGeoLocation: true,
+                    myLocation: myLocation
+                });
+
+                // Center map on user location
+                self.refs.map._map.panTo(myLocation);
+            };
+
+            function error(err) {
+                console.warn('ERROR(' + err.code + '): ' + err.message);
+
+                self.setState({
+                    myLocation: {
+                        lat: -33.8688,
+                        lng: 151.2093
+                    }
+                })
+            };
+
+            navigator.geolocation.getCurrentPosition(success, error, options);
+        } else {
+            /* geolocation IS NOT available */
+            self.setState({
+                myLocation: {
+                    lat: -33.8688,
+                    lng: 151.2093
+                }
+            })
+        }
+	}
+
+	changeLocation() {
+
+	}
 
     findMarkersInBounds() {
       const bounds = this.refs.map._map.getBounds();
@@ -93,15 +156,14 @@ export default class App extends Component {
         let average = 0;
 
         _.map(this.state.inViewMarkers, (marker, index) => {
-            let price = parseInt(marker.Price);
-            if ( price > highest || highest == null ) {
-                highest = price;
+            if ( marker.Price > highest || highest == null ) {
+                highest = marker.Price;
             }
-            if ( price < lowest || lowest == null ) {
-                lowest = price;
+            if ( marker.Price < lowest || lowest == null ) {
+                lowest = marker.Price;
             }
             length++;
-            total += price;
+            total += marker.Price;
         });
         average = total / length;
 
@@ -114,18 +176,20 @@ export default class App extends Component {
 
     render() {
         return (
-            <div className="app">
+            <div className='app'>
                 <Header />
-                <div className="main">
+                <div className='main'>
                     <Sidebar
                       markers={this.state.markers}
                       lowest={this.state.lowest}
                       highest={this.state.highest}
                       average={this.state.average}
                       inViewMarkers={this.state.inViewMarkers}
+					  usingGeoLocation={this.state.usingGeoLocation}
+					  getLocation={this.getLocation.bind(this)}
                     />
                     <Map
-                      ref="map"
+                      ref='map'
                       markers={this.state.markers}
                       myLocation={this.state.myLocation}
                       lowest={this.state.lowest}
@@ -133,6 +197,8 @@ export default class App extends Component {
                       average={this.state.average}
                       findMarkersInBounds={this.findMarkersInBounds.bind(this)}
                       inViewMarkers={this.state.inViewMarkers}
+					  getLocation={this.getLocation.bind(this)}
+					  changeLocation={this.changeLocation}
                     />
                 </div>
             </div>

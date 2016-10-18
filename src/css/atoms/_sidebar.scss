@@ -1,0 +1,47 @@
+/* Sidebar - Location */
+.sidebar-location {
+    margin: 20px;
+	width: 100%;
+}
+
+/* Fuel type */
+.sidebar-fueltype {
+    margin: 20px;
+	width: 100%;
+}
+
+/* Cheapest */
+h3 {
+	padding: 20px;
+}
+.sidebar-bottom {
+	align-self: flex-end;
+	width: 100%;
+}
+.sidebar-station {
+  display: flex;
+  margin: 0;
+  padding: 20px;
+  border-top: 1px solid #cccccc;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar-station .icon {
+  width: 60px;
+  margin-right: 20px;
+}
+
+.sidebar-station .icon img {
+  display: block;
+  width: 60px;
+}
+
+.sidebar-station .name {
+  margin-right: 20px;
+}
+
+.sidebar-station .price {
+  font-size: 48px;
+  text-align: right;
+}

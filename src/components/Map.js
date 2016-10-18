@@ -1,25 +1,16 @@
 import React, { Component } from 'react';
 
 import { GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
-// import MarkerClusterer from "../../node_modules/react-google-maps/lib/addons/MarkerClusterer";
+import MarkerClusterer from "../../node_modules/react-google-maps/lib/addons/MarkerClusterer";
 
 import _ from 'lodash';
 // import createHistory from './'
 
 import mapStyles from './map/MapStyle'; /* Styles object for Google map */
-// import postcodes from './map/nswpostcodes.js'; /* Postcode lats and longs */
 import Pin from '../images/pin.svg'; /* User location pin icon  */
 
 import mapIcons from '../utils/map-icons';
 import brandConvert from '../utils/brand-convert';
-
-// let colors = [
-//   "#0B486B",
-//   "#3B8686",
-//   "#79BD9A",
-//   "#A8DBA8",
-//   "#CFF09E"
-// ]
 
 const PetrolStationsGoogleMap = withGoogleMap(props => (
     <GoogleMap
@@ -64,39 +55,36 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
             highest={props.highest}
             lowest={props.lowest}
         ></Marker>
-        {/* Petrol Stations */}
-        {/* <MarkerClusterer
+		<MarkerClusterer
             averageCenter
             enableRetinaIcons
             gridSize={10}
-        > */}
+			maxZoom={10}
+        >
             {_.map(props.inViewMarkers, (marker, key) => {
               let color;
-              let diff = (props.highest - props.lowest) / 5;
-              if (marker.Price >= (props.lowest + (diff * 4))) {
-                color = "red";
-              } else if (marker.Price >= (props.lowest + (diff * 3))) {
-                color = "blue";
-              }  else if (marker.Price >= (props.lowest + (diff * 2))) {
-                color = "blue";
+              let diff = (props.highest - props.lowest) / 3;
+			  if (marker.Price >= (props.lowest + (diff * 2))) {
+                color = "#f43b5f";
               }  else if (marker.Price >= (props.lowest + (diff * 1))) {
-                color = "blue";
+                color = "#bc5ff2";
               } else if (marker.Price >= props.lowest) {
-                color = "#48c048";
+                color = "#5a6cf2";
               }
 
-              if (props.zoom < 13) {
+              if (props.zoom < 14) {
+				let scale = ((props.zoom < 13) ? ((props.zoom < 11) ? 0.15 : 0.25) : 0.5);
                 let icon = {
                   path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
                   fillColor: color,
-                  fillOpacity: .8,
+                  fillOpacity: 0.9,
                   anchor: {
                     x: 0,
                     y: 0
                   },
-                  strokeWeight: 1,
+                  strokeWeight: 0,
                   strokeColor: "#37a737",
-                  scale: 0.25
+                  scale: scale
                 }
                 return (
                   <Marker
@@ -112,12 +100,12 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
               } else {
                 let labelText = marker.Price;
                 let brand = brandConvert(marker.Brand);
-                let image = `data:image/svg+xml;charset=utf-8,` + encodeURIComponent(`<svg width="43.5" height="48" xmlns="http://www.w3.org/2000/svg" viewBox="-450 252 58 64">
+                let image = `data:image/svg+xml;charset=utf-8,` + encodeURIComponent(`<svg ${ props.zoom > 14 ? `width="87" height="96"` : `width="58" height="64"` } xmlns="http://www.w3.org/2000/svg" viewBox="-450 252 58 64">
                   <defs>
                     <filter id="dropshadow">
                       <feGaussianBlur in="SourceAlpha" stdDeviation="1" />
                       <feOffset dx="0" dy="0" result="offsetblur" />
-                      <feFlood flood-color="#000" flood-opacity="1" />
+                      <feFlood flood-color="#000" flood-opacity="0.5" />
                       <feComposite in2="offsetblur" operator="in" />
                       <feMerge>
                         <feMergeNode/>
@@ -125,11 +113,11 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
                       </feMerge>
                     </filter>
                   </defs>
-                	<polygon style="filter:url(#dropshadow)" fill="white" stroke="white" stroke-width="0" points="-450,252 -450,310 -423.7,310 -421,316 -418.3,310 -392,310 -392,252 	"/>
-                	<rect fill="${color}" x="-450" y="252" width="58" height="19.3"/>
+                	<polygon style="filter:url(#dropshadow)" fill="white" stroke="gray" stroke-width="0.25" points="-450,252 -450,310 -423.7,310 -421,316 -418.3,310 -392,310 -392,252 	"/>
+                	<rect fill="${color}" stroke="gray" stroke-width="0.25" x="-450" y="252" width="58" height="19.3"/>
                 	<text fill="white" style="font-family: sans-serif; font-weight: bold; font-size: 12px;" transform="matrix(1 0 0 1 -437.8086 265.625)">${labelText}</text>
-                  <image width="448" height="448" href="${mapIcons[brand]}" transform="matrix(6.250000e-002 0 0 6.250000e-002 -435.0313 276.5417)"/>
-                </svg>`);
+                  	<image width="448" height="448" href="${mapIcons[brand]}" transform="matrix(6.250000e-002 0 0 6.250000e-002 -435.0313 276.5417)"/>
+            	</svg>`);
 
                 return (
                   <Marker
@@ -150,7 +138,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
               }
 
             })}
-        {/* </MarkerClusterer> */}
+		</MarkerClusterer>
     </GoogleMap>
 ));
 
@@ -160,11 +148,7 @@ export default class Map extends Component {
 
         this.state = {
           zoom: 14,
-          bounds: {},
-          myLocation: {
-              lat: -33.8688,
-              lng: 151.2093
-          }
+          bounds: {}
         }
     }
 
@@ -178,15 +162,14 @@ export default class Map extends Component {
         let average = 0;
 
         _.map(data, (marker, index) => {
-            let price = parseInt(marker.Price);
-            if ( price > highest || highest == null ) {
-                highest = price;
+            if ( marker.Price > highest || highest == null ) {
+                highest = marker.Price;
             }
-            if ( price < lowest || lowest == null ) {
-                lowest = price;
+            if ( marker.Price < lowest || lowest == null ) {
+                lowest = marker.Price;
             }
             length++;
-            total += price;
+            total += marker.Price;
         });
         average = total / length;
 
@@ -204,52 +187,7 @@ export default class Map extends Component {
     componentDidMount() {
         let self = this;
 
-        // Get user geolocation if available
-        if ("geolocation" in navigator) {
-            /* geolocation is available */
-            let options = {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            };
-
-            function success(pos) {
-                let crd = pos.coords;
-
-                let myLocation = {
-                    lat: crd.latitude,
-                    lng: crd.longitude
-                }
-
-                self.setState({
-                    myLocation: myLocation
-                });
-
-                // Center map on user location
-                self.refs.map.state.map.setCenter(myLocation);
-            };
-
-            function error(err) {
-                console.warn('ERROR(' + err.code + '): ' + err.message);
-
-                self.setState({
-                    myLocation: {
-                        lat: -33.8688,
-                        lng: 151.2093
-                    }
-                })
-            };
-
-            navigator.geolocation.getCurrentPosition(success, error, options);
-        } else {
-            /* geolocation IS NOT available */
-            self.setState({
-                myLocation: {
-                    lat: -33.8688,
-                    lng: 151.2093
-                }
-            })
-        }
+		self.props.getLocation();
     }
 
     handleZoomChanged() {
@@ -274,7 +212,7 @@ export default class Map extends Component {
                         <div style={{ height: `100%` }} />
                     }
                     markers={this.props.markers}
-                    center={this.state.myLocation}
+                    center={this.props.myLocation}
                     onMapMounted={this.handleMapMounted.bind(this)}
                     options={{
                       styles: mapStyles

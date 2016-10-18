@@ -2,16 +2,16 @@
     box-sizing: border-box;
 }
 
+body, html, select, input, textarea {
+	font-family: stag, sans-serif;
+}
+
 .app {
   text-align: center;
 }
 
-.App-logo {
-  height: 80px;
-}
-
 .App-header {
-  background-color: #222;
+  background-color: #201e21;
   height: 150px;
   padding: 20px;
   color: white;
@@ -21,86 +21,50 @@
   font-size: large;
 }
 
-/* Header */
-header {
-    height: 81px;
-    background-color: #14819f;
-    border-bottom: 1px solid #00556c;
-    box-shadow: 0px 1px 5px rgba(0,0,0,0.125);
-    color: #00556c;
-}
-
-header .logo {
-    margin: 0;
-    float: left;
-    height: 80px;
-}
-
-header .user {
-    float: right;
-    font-size: 0;
-}
-
-header button {
-  background: #00556c;
-  color: #FFFFFF;
-  font-weight: bold;
-  display: inline-block;
-  padding: 10px 20px;
-  border-radius: 5px;
-  margin: 18px 18px 18px 0;
-  font-size: 1rem;
-  line-height: 20px;
-  border: 2px solid #00556c;
-  cursor: pointer;
-}
-
-header button:hover {
-  background: #eac54a;
-  border-color: #eac54a;
-  color: #000;
-}
-
 /* Main */
 
 .main {
-    height: calc(100vh - 81px);
+    height: calc(100vh - 72px);
     display: flex;
+    /*flex-direction: row-reverse;*/
 }
 
 /* Sidebar */
 .sidebar {
     width: 25%;
-    width: calc(400px);
-    background-color: #e8f2f3;
+    width: calc(420px);
+    background-color: #FFFFFF;
     color: #00556c;
-    border-right: 1px solid #00556c;
-}
+    box-shadow: 0px 0px 20px rgba(34, 81, 99, 0.25);
+    position: relative;
+    z-index: 2;
+    text-align: left;
 
-/* Sidebar - Location */
-.sidebar-location {
-    margin: 20px;
-}
-
-.sidebar-location input[type="text"] {
-    width: 100%;
-    border: none;
-    padding: 20px 30px;
-    line-height: 20px;
-    font-size: 20px;
-    background: #FFFFFF;
-    color: #00556c;
-    border-radius: 30px;
-    outline: none;
-}
-
-.sidebar-location input[type="text"]::placeholder {
-    color: #00556c;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: flex-start;
 }
 
 /* Map */
 .map {
     background-color: #EFEFEF;
     width: 75%;
-    width: calc(100% - 400px);
+    width: calc(100% - 420px);
+}
+
+@media screen and (max-width: 800px) {
+  .main {
+      height: calc(100vh - 72px);
+      flex-wrap: wrap;
+  }
+  .map {
+    width:  100%;
+    height: calc(100vh - 72px);
+  }
+  /* Sidebar */
+  .sidebar {
+    width: 100%;
+    height: 0;
+    overflow: hidden;
+  }
 }

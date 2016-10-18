@@ -20,19 +20,19 @@ const customStyles = {
   }
 };
 
-auth.onAuthStateChanged(user => {
-  if (user) {
-    // User is signed in.
-    this.setState({
-      user: true
-    });
-  } else {
-    // No user is signed in.
-    this.setState({
-      user: false
-    })
-  }
-});
+// auth.onAuthStateChanged(user => {
+//   if (user) {
+//     // User is signed in.
+//     this.setState({
+//       user: true
+//     });
+//   } else {
+//     // No user is signed in.
+//     this.setState({
+//       user: false
+//     })
+//   }
+// });
 
 export default class Header extends Component {
     constructor(props) {
@@ -49,7 +49,7 @@ export default class Header extends Component {
       return (
         <div>
           <button
-            onClick={() => this.signUp()}
+            onClick={() => this.logOut()}
           >Log Out</button>
           {/* <button>Edit Profile</button> */}
         </div>
@@ -72,7 +72,15 @@ export default class Header extends Component {
       let email = this.refs.email;
       let password = this.refs.password;
 
-      auth.signInWithEmailAndPassword(email.value, password.value);
+      auth.signInWithEmailAndPassword(email.value, password.value).then(() => {
+		  this.setState({
+			  user: true
+		  });
+		  // Close modal
+		  this.closeModal();
+	  }).catch(error => {
+		  console.log("Error code", error.code, "Error message", error.message);
+	  });
 
       email.value = '';
       password.value = '';
@@ -82,11 +90,26 @@ export default class Header extends Component {
       let email = this.refs.email;
       let password = this.refs.password;
 
-      auth.createUserWithEmailAndPassword(email.value, password.value);
+      auth.createUserWithEmailAndPassword(email.value, password.value).then(() => {
+		  this.setState({
+			  user: true
+		  });
+		  // Close modal
+		  this.closeModal();
+	  }).catch(error => {
+		  console.log("Error code", error.code, "Error message", error.message);
+	  });
     }
 
     logOut() {
-      auth.signOut();
+		auth.signOut().then(() => {
+			// Sign-out successful.
+			this.setState({
+				user: false
+			});
+		}).catch(error => {
+			console.log("Error signing out!");
+		});
     }
 
     renderSignUpForm() {
