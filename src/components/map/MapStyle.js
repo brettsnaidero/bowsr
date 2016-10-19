@@ -175,6 +175,7 @@ let mapStyles = [{
         "color": "#33c4d7"
     }]
 }]
+
 let otherStyles = [
   {
     "featureType": "administrative.land_parcel",

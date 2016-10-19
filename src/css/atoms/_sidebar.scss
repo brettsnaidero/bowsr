@@ -4,6 +4,36 @@
 	width: 100%;
 }
 
+.sidebar-location button {
+  border: none;
+  background: none;
+  position: relative;
+}
+
+.sidebar-location button img {
+  display: block;
+  width: 20px;
+  height: 20px;
+}
+
+.sidebar-location button span {
+  position: absolute;
+  bottom: 100%;
+  left: 50%;
+  width: 80px;
+  margin-left: -40px;
+  background-color: #000;
+  color: #FFF;
+  line-height: 24px;
+  border-radius: 5px;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 100%;
+  }
+}
+
 /* Fuel type */
 .sidebar-fueltype {
     margin: 20px;

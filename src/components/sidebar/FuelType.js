@@ -11,25 +11,25 @@ export default class FuelType extends Component {
 
 	updateValue(newValue) {
         this.setState({
-			selectedValue: newValue
-		});
+    			selectedValue: newValue
+    		});
     }
 
     render() {
-		let options = [
-		    { value: 'one', label: 'One' },
-		    { value: 'two', label: 'Two' }
-		];
+    		let options = [
+    		    { value: 'one', label: 'One' },
+    		    { value: 'two', label: 'Two' }
+    		];
         return (
             <div className="sidebar-fueltype">
-				<h3>Choose fuel type</h3>
-                <Select
-                    name="form-field-name"
-                    ref="fueltype"
-                    options={options}
-					value={this.state.selectedValue}
-					onChange={this.updateValue.bind(this)}
-                />
+              <h3>Choose fuel type</h3>
+              <Select
+                name="form-field-name"
+                ref="fueltype"
+                options={options}
+                value={this.state.selectedValue}
+                onChange={this.updateValue.bind(this)}
+              />
             </div>
         )
     }

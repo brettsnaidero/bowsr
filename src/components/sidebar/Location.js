@@ -1,43 +1,43 @@
 import React, { Component } from 'react';
 import Select from 'react-select';
 
-// import postcodes from './map/nswpostcodes.js'; /* Postcode lats and longs */
+import locationMarker from '../../images/gps-fixed-indicator.svg'
+import postcodes from '../map/nswpostcodes';
 
 export default class Location extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-
+          options: [
+            { value: 'hey', label: 'hey' }
+          ]
         }
     }
 
 
 	updateValue(newValue) {
-        this.setState({
-			selectedValue: newValue
-		});
-    }
+    this.setState({
+      selectedValue: newValue
+    });
+  }
 
-    render() {
-		let getOptions = [
-		    { value: 'one', label: 'One' },
-		    { value: 'two', label: 'Two' }
-		];
+  render() {
         return (
-            <div className="sidebar-location">
-				<h3>Search by postcode</h3>
-                <Select
-                    name="form-field-name"
-                    ref="fueltype"
-					value={this.state.selectedValue}
-					onChange={this.updateValue.bind(this)}
-					loadOptions={getOptions}
-                />
-				<button onClick={this.props.getLocation}>
-					{ this.props.usingGeoLocation ? <div>Using location</div> : <div>Not using location</div> }
-				</button>
-            </div>
+          <div className="sidebar-location">
+  	        <h3>Search by postcode</h3>
+            <Select
+                name="form-field-name"
+                ref="fueltype"
+                options={postcodes}
+      					value={this.state.selectedValue}
+      					onChange={this.updateValue.bind(this)}
+            />
+    				<button onClick={this.props.getLocation} className={this.props.usingGeoLocation ? "location" : "nolocation"}>
+              <img src={locationMarker} />
+    					{ this.props.usingGeoLocation ? <span>Using location</span> : <span>Not using location</span> }
+    				</button>
+          </div>
         )
     }
 
