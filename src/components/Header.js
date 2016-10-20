@@ -9,16 +9,7 @@ import logoText from '../images/bowsertext.svg';
 
 import auth from '../auth';
 
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
+import modalStyle from '../data/modalStyles';
 
 // auth.onAuthStateChanged(user => {
 //   if (user) {
@@ -73,14 +64,17 @@ export default class Header extends Component {
       let password = this.refs.password;
 
       auth.signInWithEmailAndPassword(email.value, password.value).then(() => {
-		  this.setState({
-			  user: true
-		  });
-		  // Close modal
-		  this.closeModal();
-	  }).catch(error => {
-		  console.log("Error code", error.code, "Error message", error.message);
-	  });
+  		  this.setState({
+  			  user: true
+  		  });
+  		  // Close modal
+  		  this.closeModal();
+  	  }).catch(error => {
+  		  console.log("Error code", error.code, "Error message", error.message);
+        this.setState({
+          errorMessage: error.message
+        })
+  	  });
 
       email.value = '';
       password.value = '';
@@ -91,43 +85,57 @@ export default class Header extends Component {
       let password = this.refs.password;
 
       auth.createUserWithEmailAndPassword(email.value, password.value).then(() => {
-		  this.setState({
-			  user: true
-		  });
-		  // Close modal
-		  this.closeModal();
-	  }).catch(error => {
-		  console.log("Error code", error.code, "Error message", error.message);
-	  });
+  		  this.setState({
+  			  user: true
+  		  });
+  		  // Close modal
+  		  this.closeModal();
+  	  }).catch(error => {
+        this.setState({
+          errorMessage: error.message
+        })
+  	  });
     }
 
     logOut() {
-		auth.signOut().then(() => {
-			// Sign-out successful.
-			this.setState({
-				user: false
-			});
-		}).catch(error => {
-			console.log("Error signing out!");
-		});
+  		auth.signOut().then(() => {
+  			// Sign-out successful.
+  			this.setState({
+  				user: false
+  			});
+  		}).catch(error => {
+        this.setState({
+          errorMessage: error.message
+        })
+		  });
     }
 
     renderSignUpForm() {
       return (
         <div>
-          Email: <input type="email" ref="email" />
-          Password: <input type="password" ref="password" />
-          <button
-            onClick={() => this.logIn()}
-          >
-            Log In
-          </button>
-
-          <button
-            onClick={() => this.signUp()}
-          >
-            Sign Up
-          </button>
+          <form>
+            { this.state.errorMessage ? `<div class="message bad">${this.state.errorMessage}</div>` : `` }
+            <div className="field text">
+              <label>Email:</label>
+              <input type="email" ref="email" />
+            </div>
+            <div className="field text">
+              <label>Password:</label>
+              <input type="password" ref="password" />
+            </div>
+            <div className="Actions">
+              <button
+                onClick={() => this.logIn()}
+              >
+                Log In
+              </button>
+              <button
+                onClick={() => this.signUp()}
+              >
+                Sign Up
+              </button>
+            </div>
+          </form>
         </div>
       )
     }
@@ -151,8 +159,8 @@ export default class Header extends Component {
                   onAfterOpen={this.afterOpenModal()}
                   // onRequestClose={requestCloseFn}
                   // closeTimeoutMS={n}
-                  // shouldCloseOnOverlayClick={false}
-                  style={customStyles}
+                  shouldCloseOnOverlayClick={true}
+                  style={modalStyle}
                   contentLabel="No Overlay Click Modal"
                 >
                   { this.renderSignUpForm() }
@@ -177,6 +185,9 @@ export default class Header extends Component {
     }
 
     closeModal() {
-      this.setState({modalIsOpen: false});
+      this.setState({
+        modalIsOpen: false,
+        errorMessage: null
+      });
     }
 }

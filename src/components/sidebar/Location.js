@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import Select from 'react-select';
 
 import locationMarker from '../../images/gps-fixed-indicator.svg'
-import postcodes from '../map/nswpostcodes';
+import postcodes from '../../data/nswpostcodes';
 
 export default class Location extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-          options: [
-            { value: 'hey', label: 'hey' }
-          ]
         }
     }
 
@@ -20,12 +17,13 @@ export default class Location extends Component {
     this.setState({
       selectedValue: newValue
     });
+
+    this.props.changeLocation(newValue);
   }
 
   render() {
         return (
           <div className="sidebar-location">
-  	        <h3>Search by postcode</h3>
             <Select
                 name="form-field-name"
                 ref="fueltype"

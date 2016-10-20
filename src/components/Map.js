@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-
 import { GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
-import MarkerClusterer from "../../node_modules/react-google-maps/lib/addons/MarkerClusterer";
 
 import _ from 'lodash';
 // import createHistory from './'
 
-import mapStyles from './map/MapStyle'; /* Styles object for Google map */
+import mapStyles from '../data/MapStyle'; /* Styles object for Google map */
 import Pin from '../images/pin.svg'; /* User location pin icon  */
 
 import mapIcons from '../utils/map-icons';
@@ -55,16 +53,10 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
             highest={props.highest}
             lowest={props.lowest}
         ></Marker>
-		<MarkerClusterer
-            averageCenter
-            enableRetinaIcons
-            gridSize={10}
-			maxZoom={10}
-        >
             {_.map(props.inViewMarkers, (marker, key) => {
               let color;
               let diff = (props.highest - props.lowest) / 3;
-			  if (marker.Price >= (props.lowest + (diff * 2))) {
+			        if (marker.Price >= (props.lowest + (diff * 2))) {
                 color = "#f43b5f";
               }  else if (marker.Price >= (props.lowest + (diff * 1))) {
                 color = "#bc5ff2";
@@ -72,8 +64,8 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
                 color = "#5a6cf2";
               }
 
-              if (props.zoom < 14) {
-				let scale = ((props.zoom < 13) ? ((props.zoom < 11) ? 0.15 : 0.25) : 0.5);
+              if (props.zoom < 13) {
+				        let scale = ((props.zoom < 13) ? ((props.zoom < 11) ? 0.15 : 0.25) : 0.5);
                 let icon = {
                   path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
                   fillColor: color,
@@ -138,7 +130,6 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
               }
 
             })}
-		</MarkerClusterer>
     </GoogleMap>
 ));
 

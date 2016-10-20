@@ -9,22 +9,27 @@ export default class FuelType extends Component {
         }
     }
 
-	updateValue(newValue) {
+	  updateValue(newValue) {
         this.setState({
     			selectedValue: newValue
     		});
+
+        this.props.changeFuelType(newValue.value);
     }
 
     render() {
     		let options = [
-    		    { value: 'one', label: 'One' },
-    		    { value: 'two', label: 'Two' }
+    		    { value: 'U91', label: 'U91' },
+    		    { value: 'P98', label: 'P98' },
+            { value: 'DL', label: 'DL' },
+            { value: 'LPG', label: 'LPG' },
+            { value: 'PDL', label: 'PDL' }
     		];
         return (
             <div className="sidebar-fueltype">
-              <h3>Choose fuel type</h3>
               <Select
-                name="form-field-name"
+                name="fuelType"
+                searchPromptText="Choose fuel type"
                 ref="fueltype"
                 options={options}
                 value={this.state.selectedValue}

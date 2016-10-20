@@ -7,7 +7,7 @@ import _ from 'lodash';
 // import db from './db';
 // import createHistory from 'history';
 
-import TestData from './TestData.json'; /* Local version of petrol data */
+import TestData from './data/TestData.json'; /* Local version of petrol data */
 
 // let Users = db.ref('lists');
 // Users.push({
@@ -32,13 +32,13 @@ export default class App extends Component {
           markers: null,
           inViewMarkers: null,
 
-		  usingGeoLocation: false,
-		  myLocation: {
+    		  usingGeoLocation: false,
+    		  myLocation: {
               lat: -33.8688,
               lng: 151.2093
           },
 
-		  fuelType: 'U10'
+		      fuelType: 'U10'
         }
     }
 
@@ -65,87 +65,98 @@ export default class App extends Component {
         self.calculateThings(TestData);
     }
 
-	getLocation() {
-		let self = this;
-		// Get user geolocation if available
-        if ('geolocation' in navigator) {
-            /* geolocation is available */
-            let options = {
-                enableHighAccuracy: true,
-                timeout: 5000,
-                maximumAge: 0
-            };
+  	getLocation() {
+  		let self = this;
+  		// Get user geolocation if available
+          if ('geolocation' in navigator) {
+              /* geolocation is available */
+              let options = {
+                  enableHighAccuracy: true,
+                  timeout: 5000,
+                  maximumAge: 0
+              };
 
-            function success(pos) {
-                let crd = pos.coords;
+              function success(pos) {
+                  let crd = pos.coords;
 
-                let myLocation = {
-                    lat: crd.latitude,
-                    lng: crd.longitude
-                }
+                  let myLocation = {
+                      lat: crd.latitude,
+                      lng: crd.longitude
+                  }
 
-                self.setState({
-					usingGeoLocation: true,
-                    myLocation: myLocation
-                });
+                  self.setState({
+  					          usingGeoLocation: true,
+                      myLocation: myLocation
+                  });
 
-                // Center map on user location
-                self.refs.map._map.panTo(myLocation);
-            };
+                  // Center map on user location
+                  self.refs.map._map.panTo(myLocation);
+              };
 
-            function error(err) {
-                console.warn('ERROR(' + err.code + '): ' + err.message);
+              function error(err) {
+                  console.warn('ERROR(' + err.code + '): ' + err.message);
 
-                self.setState({
-                    myLocation: {
-                        lat: -33.8688,
-                        lng: 151.2093
-                    }
-                })
-            };
+                  self.setState({
+                      myLocation: {
+                          lat: -33.8688,
+                          lng: 151.2093
+                      }
+                  })
+              };
 
-            navigator.geolocation.getCurrentPosition(success, error, options);
-        } else {
-            /* geolocation IS NOT available */
-            self.setState({
-                myLocation: {
-                    lat: -33.8688,
-                    lng: 151.2093
-                }
-            })
-        }
-	}
+              navigator.geolocation.getCurrentPosition(success, error, options);
+          } else {
+              /* geolocation IS NOT available */
+              self.setState({
+                  myLocation: {
+                      lat: -33.8688,
+                      lng: 151.2093
+                  }
+              })
+          }
+  	}
 
-	changeLocation() {
+  	changeLocation(newLocation) {
+      this.setState({
+        usingGeoLocation: false,
+        myLocation: newLocation.location
+      });
+      // Center map on user location
+      this.refs.map._map.panTo(newLocation.location);
+  	}
 
-	}
+    changeFuelType(newFuelType) {
+      this.setState({
+        fuelType: newFuelType
+      })
+    }
 
     findMarkersInBounds() {
-      const bounds = this.refs.map._map.getBounds();
-      if (bounds !== this.state.bounds) {
-        // Notice: Check bounds equality here,
-        // or it will fire bounds_changed event infinitely
-        this.setState({
-          bound: bounds
+        const bounds = this.refs.map._map.getBounds();
+        if (bounds !== this.state.bounds) {
+            // Notice: Check bounds equality here,
+            // or it will fire bounds_changed event infinitely
+            this.setState({
+                bound: bounds
+            });
+        }
+
+        let inViewMarkers = [];
+        _.map(this.state.markers, (marker, item) => {
+            let position = {
+                lat: marker.Lat,
+                lng: marker.Long
+            }
+            if (bounds.contains(position)) {
+                inViewMarkers.push(marker);
+            }
         });
-      }
 
-      let inViewMarkers = [];
-      _.map(this.state.markers, (marker, item) => {
-        let position = {
-          lat: marker.Lat,
-          lng: marker.Long
-        }
-        if ( bounds.contains(position) ) {
-          inViewMarkers.push(marker);
-        }
-      });
+        this.setState({
+            inViewMarkers: inViewMarkers
+        });
 
-      this.setState({
-        inViewMarkers: inViewMarkers
-      });
-
-      this.calculateThings();
+        this.calculateThings();
     }
 
     calculateThings() {
@@ -185,8 +196,10 @@ export default class App extends Component {
                       highest={this.state.highest}
                       average={this.state.average}
                       inViewMarkers={this.state.inViewMarkers}
-					  usingGeoLocation={this.state.usingGeoLocation}
-					  getLocation={this.getLocation.bind(this)}
+          					  usingGeoLocation={this.state.usingGeoLocation}
+          					  getLocation={this.getLocation.bind(this)}
+                      changeLocation={this.changeLocation.bind(this)}
+                      changeFuelType={this.changeFuelType.bind(this)}
                     />
                     <Map
                       ref='map'
@@ -197,8 +210,8 @@ export default class App extends Component {
                       average={this.state.average}
                       findMarkersInBounds={this.findMarkersInBounds.bind(this)}
                       inViewMarkers={this.state.inViewMarkers}
-					  getLocation={this.getLocation.bind(this)}
-					  changeLocation={this.changeLocation}
+          					  getLocation={this.getLocation.bind(this)}
+          					  changeLocation={this.changeLocation}
                     />
                 </div>
             </div>
