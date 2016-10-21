@@ -9,8 +9,6 @@ import logoText from '../images/bowsertext.svg';
 
 import auth from '../auth';
 
-import modalStyle from '../data/modalStyles';
-
 // auth.onAuthStateChanged(user => {
 //   if (user) {
 //     // User is signed in.
@@ -112,7 +110,7 @@ export default class Header extends Component {
 
     renderSignUpForm() {
       return (
-        <div>
+        <div className="popup-holder">
           <form>
             { this.state.errorMessage ? `<div class="message bad">${this.state.errorMessage}</div>` : `` }
             <div className="field text">
@@ -160,8 +158,9 @@ export default class Header extends Component {
                   // onRequestClose={requestCloseFn}
                   // closeTimeoutMS={n}
                   shouldCloseOnOverlayClick={true}
-                  style={modalStyle}
                   contentLabel="No Overlay Click Modal"
+                  className="modal"
+                  overlayClassName="modal-overlay"
                 >
                   { this.renderSignUpForm() }
                   <button

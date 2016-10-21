@@ -6,25 +6,25 @@ export default class FuelType extends Component {
         super(props);
 
         this.state = {
-			selectedValue: 'U91'
+			    selectedValue: 'U91'
         }
     }
 
 	  updateValue(newValue) {
-		this.setState({
-			selectedValue: newValue
-		});
+    		this.setState({
+    			selectedValue: newValue
+    		});
 
         this.props.changeFuelType(newValue.value);
     }
 
     render() {
     		let options = [
-    		    { value: 'U91', label: 'U91' },
-    		    { value: 'P98', label: 'P98' },
-	            { value: 'DL', label: 'DL' },
-	            { value: 'LPG', label: 'LPG' },
-	            { value: 'PDL', label: 'PDL' }
+          { value: 'U91', label: 'U91' },
+          { value: 'P98', label: 'P98' },
+          { value: 'DL', label: 'DL' },
+          { value: 'LPG', label: 'LPG' },
+          { value: 'PDL', label: 'PDL' }
     		];
         return (
             <div className="sidebar-fueltype">

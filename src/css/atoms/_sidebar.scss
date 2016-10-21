@@ -15,8 +15,6 @@
     flex-direction: column;
 }
 .sidebar-options {
-  margin: 3px;
-  border-radius: 2px;
   width: 100%;
   background-color: #4c5b62;
   align-self: flex-start;
@@ -30,8 +28,9 @@
 
 /* Sidebar - Location */
 .sidebar-location {
+  margin: 3px;
   padding: 20px;
-  border-bottom: 3px solid #FFFFFF;
+  border-bottom: 1px solid #2b2f30;
   display: flex;
 }
 
@@ -79,6 +78,7 @@
 
 /* Fuel type */
 .sidebar-fueltype {
+    margin: 3px;
     padding: 20px;
 }
 

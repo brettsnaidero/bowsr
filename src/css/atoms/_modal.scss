@@ -1,0 +1,72 @@
+.ReactModal__Overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  z-index: 3;
+  overflow-y: auto;
+  background: linear-gradient(180deg,hsla(0,0%,100%,.9) 0,rgba(218,240,247,.9));
+}
+
+.ReactModal__Overlay--after-open {
+
+}
+
+.ReactModal__Content {
+  position: static;
+  top: auto;
+  left: auto;
+  right: auto;
+  bottom: auto;
+  border: none;
+  background: none;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 0px;
+  display: table;
+  width: 100%;
+  height: 100%;
+  margin-right: 0px;
+  transform: none;
+  pointer-events: none;
+}
+
+.popup-holder {
+    padding: 110px 100px 62px;
+    margin: 40px 20px;
+    display: table-cell;
+    vertical-align: middle;
+    pointer-events: none;
+}
+
+.popup-content {
+    position: relative;
+    margin: 0 auto;
+    pointer-events: all;
+}
+
+.ReactModal__Overlay.ReactModal__Overlay--after-open {
+    background: linear-gradient(180deg,hsla(0,0%,100%,.9) 0,rgba(218,240,247,.9));
+}
+
+.ReactModal__Content button.close {
+    position: absolute;
+    top: 32px;
+    right: 32px;
+    width: 48px;
+    height: 48px;
+    border: none;
+    background: rgba(107,136,151,.25);
+    border-radius: 50%;
+    -webkit-transform: rotate(45deg);
+    transform: rotate(45deg);
+    white-space: nowrap;
+    text-indent: 150%;
+    overflow: hidden;
+    text-align: left;
+    cursor: pointer;
+    outline: none;
+    pointer-events: all;
+}

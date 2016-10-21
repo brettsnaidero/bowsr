@@ -28,13 +28,13 @@ export default class Location extends Component {
                 name="form-field-name"
                 ref="fueltype"
                 options={postcodes}
-				value={this.state.selectedValue}
-				onChange={this.updateValue.bind(this)}
+                value={this.state.selectedValue}
+                onChange={this.updateValue.bind(this)}
             />
-				<button onClick={this.props.getLocation} className={this.props.usingGeoLocation ? "location" : "nolocation"}>
-              		<img src={locationMarker} />
-					{ this.props.usingGeoLocation ? <span>Using location</span> : <span>Not using location</span> }
-				</button>
+    				<button onClick={this.props.getLocation} className={this.props.usingGeoLocation ? "location" : "nolocation"}>
+                <img src={locationMarker} />
+      					{ this.props.usingGeoLocation ? <span>Using location</span> : <span>Not using location</span> }
+    				</button>
           </div>
         )
     }

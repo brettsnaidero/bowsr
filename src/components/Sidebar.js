@@ -25,7 +25,7 @@ export default class Sidebar extends Component {
                 </div>
                 <InView
                   inViewMarkers={this.props.inViewMarkers}
-				  fuelType={this.props.fuelType}
+				          fuelType={this.props.fuelType}
                 />
                 <CheapestNearest
                   inViewMarkers={this.props.inViewMarkers}

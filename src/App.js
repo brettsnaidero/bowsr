@@ -66,71 +66,71 @@ export default class App extends Component {
     }
 
   	getLocation() {
-  		let self = this;
-  		// Get user geolocation if available
-          if ('geolocation' in navigator) {
-              /* geolocation is available */
-              let options = {
-                  enableHighAccuracy: true,
-                  timeout: 5000,
-                  maximumAge: 0
-              };
+    		let self = this;
+    		// Get user geolocation if available
+        if ('geolocation' in navigator) {
+            /* geolocation is available */
+            let options = {
+                enableHighAccuracy: true,
+                timeout: 5000,
+                maximumAge: 0
+            };
 
-              function success(pos) {
-                  let crd = pos.coords;
+            function success(pos) {
+                let crd = pos.coords;
 
-                  let myLocation = {
-                      lat: crd.latitude,
-                      lng: crd.longitude
-                  }
+                let myLocation = {
+                    lat: crd.latitude,
+                    lng: crd.longitude
+                }
 
-                  self.setState({
-					  usingGeoLocation: true,
-                      myLocation: myLocation
-                  });
+                self.setState({
+				            usingGeoLocation: true,
+                    myLocation: myLocation
+                });
 
-                  // Center map on user location
-                  self.refs.map._map.panTo(myLocation);
-              };
+                // Center map on user location
+                self.refs.map._map.panTo(myLocation);
+            };
 
-              function error(err) {
-                  console.warn('ERROR(' + err.code + '): ' + err.message);
+            function error(err) {
+                console.warn('ERROR(' + err.code + '): ' + err.message);
 
-                  self.setState({
-                      myLocation: {
-                          lat: -33.8688,
-                          lng: 151.2093
-                      }
-                  })
-              };
+                self.setState({
+                    myLocation: {
+                        lat: -33.8688,
+                        lng: 151.2093
+                    }
+                })
+            };
 
-              navigator.geolocation.getCurrentPosition(success, error, options);
-          } else {
-              /* geolocation IS NOT available */
-              self.setState({
-                  myLocation: {
-                      lat: -33.8688,
-                      lng: 151.2093
-                  }
-              })
-          }
+            navigator.geolocation.getCurrentPosition(success, error, options);
+        } else {
+            /* geolocation IS NOT available */
+            self.setState({
+                myLocation: {
+                    lat: -33.8688,
+                    lng: 151.2093
+                }
+            })
+        }
   	}
 
   	changeLocation(newLocation) {
-		this.setState({
-			usingGeoLocation: false,
-			myLocation: newLocation.location
-		});
-		// Center map on user location
-		this.refs.map._map.panTo(newLocation.location);
+    		this.setState({
+    			usingGeoLocation: false,
+    			myLocation: newLocation.location
+    		});
+    		// Center map on user location
+    		this.refs.map._map.panTo(newLocation.location);
   	}
 
     changeFuelType(newFuelType) {
-		this.setState({
-			fuelType: newFuelType
-		}, () => {
-			this.calculateThings();
-		});
+    		this.setState({
+    			fuelType: newFuelType
+    		}, () => {
+    			this.calculateThings();
+    		});
     }
 
     findMarkersInBounds() {
