@@ -6,13 +6,14 @@ export default class FuelType extends Component {
         super(props);
 
         this.state = {
+			selectedValue: 'U91'
         }
     }
 
 	  updateValue(newValue) {
-        this.setState({
-    			selectedValue: newValue
-    		});
+		this.setState({
+			selectedValue: newValue
+		});
 
         this.props.changeFuelType(newValue.value);
     }
@@ -31,7 +32,6 @@ export default class FuelType extends Component {
                 name="fuelType"
                 searchPromptText="Choose fuel type"
                 ref="fueltype"
-				value="U91"
                 options={options}
                 value={this.state.selectedValue}
                 onChange={this.updateValue.bind(this)}

@@ -57,8 +57,10 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
 			let color;
             let diff = (props.highest - props.lowest) / 3;
 			let price;
+			let hasFuel = false;
 			if (marker.Prices.find(x => x.FuelType == props.fuelType)) {
 				price = marker.Prices.find(x => x.FuelType == props.fuelType).Price;
+				hasFuel = true;
 			}
 			if (price) {
 				if (price >= (props.lowest + (diff * 2))) {
@@ -86,7 +88,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
 						}}
 						key={key}
 					>
-					  <div className="small-marker" style={{ backgroundColor: color }}></div>
+					  <div className={"small-marker " + (hasFuel ? "has" : "hasnt")} style={{ backgroundColor: color, zIndex: key }}></div>
 					</OverlayView>
 				)
 			} else {
@@ -99,16 +101,19 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
 						}}
 						mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
 						getPixelPositionOffset={(width, height) => {
-							return { x: -(width / 2), y: -(height / 2) };
+							return { x: -(width / 2), y: -(height) };
 						}}
 						key={key}
 					>
-					  <div className={props.zoom > 15 ? "huge-marker" : "big-marker"}>
-						<div className="price" style={{ backgroundColor: color }}>{price}</div>
-						<div className="brand">
-							<img src={mapIcons[brand]} />
+						<div className={"marker " + (hasFuel ? "has" : "hasnt")} style={{ zIndex: key }}>
+							<div className={props.zoom > 15 ? "huge-marker" : "big-marker"}>
+								<div className="price" style={{ backgroundColor: color }}>{price}</div>
+								<div className="brand">
+									<img src={mapIcons[brand]} />
+								</div>
+								<div className="tooltip--tip"></div>
+							</div>
 						</div>
-					  </div>
 					</OverlayView>
 				)
 			}
