@@ -1,0 +1,94 @@
+/* Huge Marker */
+.huge-marker {
+	height: 120px;
+	width: 120px;
+	background: #FFF;
+	box-shadow: 0px 0px 10px rgba(0,0,0,0.375);
+	position: relative;
+}
+
+.huge-marker .price {
+	height: 40px;
+	background-color: #000;
+	text-align: center;
+	line-height: 40px;
+	color: #FFFFFF;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 24px;
+	font-weight: bold;
+}
+
+.huge-marker:after {
+	content: '';
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(255, 255, 255, 0);
+	border-top-color: #FFFFFF;
+	border-width: 12px;
+	margin-left: -12px;
+}
+
+.huge-marker .brand img {
+	display: block;
+	height: 52px;
+	width: 52px;
+	margin: 14px auto;
+}
+
+/* Big Marker */
+.big-marker {
+	height: 60px;
+	width: 60px;
+	background: #FFF;
+	box-shadow: 0px 0px 5px rgba(0,0,0,0.375);
+	position: relative;
+}
+
+.big-marker .price {
+	height: 20px;
+	background-color: #000;
+	text-align: center;
+	line-height: 20px;
+	color: #FFFFFF;
+	white-space: nowrap;
+	overflow: hidden;
+	font-size: 12px;
+	font-weight: bold;
+}
+
+.big-marker:after {
+	content: '';
+	top: 100%;
+	left: 50%;
+	border: solid transparent;
+	height: 0;
+	width: 0;
+	position: absolute;
+	pointer-events: none;
+	border-color: rgba(255, 255, 255, 0);
+	border-top-color: #FFFFFF;
+	border-width: 6px;
+	margin-left: -6px;
+}
+
+.big-marker .brand img {
+	display: block;
+	height: 26px;
+	width: 26px;
+	margin: 7px auto;
+}
+
+/* Small Icon */
+.small-marker {
+	background-color: #000;
+	height: 20px;
+	width: 20px;
+	border-radius: 50%;
+	opacity: 0.9;
+}

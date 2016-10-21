@@ -21,9 +21,9 @@ export default class FuelType extends Component {
     		let options = [
     		    { value: 'U91', label: 'U91' },
     		    { value: 'P98', label: 'P98' },
-            { value: 'DL', label: 'DL' },
-            { value: 'LPG', label: 'LPG' },
-            { value: 'PDL', label: 'PDL' }
+	            { value: 'DL', label: 'DL' },
+	            { value: 'LPG', label: 'LPG' },
+	            { value: 'PDL', label: 'PDL' }
     		];
         return (
             <div className="sidebar-fueltype">
@@ -31,6 +31,7 @@ export default class FuelType extends Component {
                 name="fuelType"
                 searchPromptText="Choose fuel type"
                 ref="fueltype"
+				value="U91"
                 options={options}
                 value={this.state.selectedValue}
                 onChange={this.updateValue.bind(this)}

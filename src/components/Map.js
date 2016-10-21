@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GoogleMap, Marker, withGoogleMap } from 'react-google-maps';
+import { GoogleMap, Marker, OverlayView, withGoogleMap } from 'react-google-maps';
 
 import _ from 'lodash';
 // import createHistory from './'
@@ -53,83 +53,66 @@ const PetrolStationsGoogleMap = withGoogleMap(props => (
             highest={props.highest}
             lowest={props.lowest}
         ></Marker>
-            {_.map(props.inViewMarkers, (marker, key) => {
-              let color;
-              let diff = (props.highest - props.lowest) / 3;
-			        if (marker.Price >= (props.lowest + (diff * 2))) {
-                color = "#f43b5f";
-              }  else if (marker.Price >= (props.lowest + (diff * 1))) {
-                color = "#bc5ff2";
-              } else if (marker.Price >= props.lowest) {
-                color = "#5a6cf2";
-              }
+		{_.map(props.inViewMarkers, (marker, key) => {
+			let color;
+            let diff = (props.highest - props.lowest) / 3;
+			let price;
+			if (marker.Prices.find(x => x.FuelType == props.fuelType)) {
+				price = marker.Prices.find(x => x.FuelType == props.fuelType).Price;
+			}
+			if (price) {
+				if (price >= (props.lowest + (diff * 2))) {
+					color = "#f43b5f";
+				}  else if (price >= (props.lowest + (diff * 1))) {
+					color = "#bc5ff2";
+				} else if (price >= props.lowest) {
+					color = "#5a6cf2";
+				}
+			} else {
+				price = `No ${props.fuelType}`;
+				color = `#000000`;
+			}
 
-              if (props.zoom < 13) {
-				        let scale = ((props.zoom < 13) ? ((props.zoom < 11) ? 0.15 : 0.25) : 0.5);
-                let icon = {
-                  path: "M-20,0a20,20 0 1,0 40,0a20,20 0 1,0 -40,0",
-                  fillColor: color,
-                  fillOpacity: 0.9,
-                  anchor: {
-                    x: 0,
-                    y: 0
-                  },
-                  strokeWeight: 0,
-                  strokeColor: "#37a737",
-                  scale: scale
-                }
-                return (
-                  <Marker
-                      position={{
-                          lat: marker.Lat,
-                          lng: marker.Long
-                      }}
-                      key={key}
-                      icon={icon}
-                  >
-                  </Marker>
-                )
-              } else {
-                let labelText = marker.Price;
-                let brand = brandConvert(marker.Brand);
-                let image = `data:image/svg+xml;charset=utf-8,` + encodeURIComponent(`<svg ${ props.zoom > 14 ? `width="87" height="96"` : `width="58" height="64"` } xmlns="http://www.w3.org/2000/svg" viewBox="-450 252 58 64">
-                  <defs>
-                    <filter id="dropshadow">
-                      <feGaussianBlur in="SourceAlpha" stdDeviation="1" />
-                      <feOffset dx="0" dy="0" result="offsetblur" />
-                      <feFlood flood-color="#000" flood-opacity="0.5" />
-                      <feComposite in2="offsetblur" operator="in" />
-                      <feMerge>
-                        <feMergeNode/>
-                        <feMergeNode in="SourceGraphic" />
-                      </feMerge>
-                    </filter>
-                  </defs>
-                	<polygon style="filter:url(#dropshadow)" fill="white" stroke="gray" stroke-width="0.25" points="-450,252 -450,310 -423.7,310 -421,316 -418.3,310 -392,310 -392,252 	"/>
-                	<rect fill="${color}" stroke="gray" stroke-width="0.25" x="-450" y="252" width="58" height="19.3"/>
-                	<text fill="white" style="font-family: sans-serif; font-weight: bold; font-size: 12px;" transform="matrix(1 0 0 1 -437.8086 265.625)">${labelText}</text>
-                  	<image width="448" height="448" href="${mapIcons[brand]}" transform="matrix(6.250000e-002 0 0 6.250000e-002 -435.0313 276.5417)"/>
-            	</svg>`);
-
-                return (
-                  <Marker
-                      position={{
-                          lat: marker.Lat,
-                          lng: marker.Long
-                      }}
-                      key={key}
-                      icon={image}
-                  >
-                      {/* <InfoWindow>
-                          <div>{props.markers[index].Brand}</div>
-                          <div>{props.markers[index].Name}</div>
-                          <div>{props.markers[index].Price}</div>
-                      </InfoWindow> */}
-                  </Marker>
-                )
-              }
-
-            })}
+			if (props.zoom < 13) {
+				return (
+					<OverlayView
+						position={{
+							lat: marker.Lat,
+							lng: marker.Long
+						}}
+						mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+						getPixelPositionOffset={(width, height) => {
+							return { x: -(width / 2), y: -(height / 2) };
+						}}
+						key={key}
+					>
+					  <div className="small-marker" style={{ backgroundColor: color }}></div>
+					</OverlayView>
+				)
+			} else {
+				let brand = brandConvert(marker.Brand);
+				return (
+					<OverlayView
+						position={{
+							lat: marker.Lat,
+							lng: marker.Long
+						}}
+						mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+						getPixelPositionOffset={(width, height) => {
+							return { x: -(width / 2), y: -(height / 2) };
+						}}
+						key={key}
+					>
+					  <div className={props.zoom > 15 ? "huge-marker" : "big-marker"}>
+						<div className="price" style={{ backgroundColor: color }}>{price}</div>
+						<div className="brand">
+							<img src={mapIcons[brand]} />
+						</div>
+					  </div>
+					</OverlayView>
+				)
+			}
+		})}
     </GoogleMap>
 ));
 
@@ -138,41 +121,12 @@ export default class Map extends Component {
         super(props);
 
         this.state = {
-          zoom: 14,
-          bounds: {}
+          zoom: 14
         }
     }
 
-    calculateThings() {
-        let data = this.props.inViewMarkers;
-
-        let highest = null;
-        let lowest = null;
-        let total = 0;
-        let length = 1;
-        let average = 0;
-
-        _.map(data, (marker, index) => {
-            if ( marker.Price > highest || highest == null ) {
-                highest = marker.Price;
-            }
-            if ( marker.Price < lowest || lowest == null ) {
-                lowest = marker.Price;
-            }
-            length++;
-            total += marker.Price;
-        });
-        average = total / length;
-
-        this.setState({
-          lowest: lowest,
-          highest: highest,
-          average: average
-        });
-    }
-
     handleMapMounted(map) {
-      this._map = map;
+		this._map = map;
     }
 
     componentDidMount() {
@@ -182,14 +136,14 @@ export default class Map extends Component {
     }
 
     handleZoomChanged() {
-      const nextZoom = this._map.getZoom();
-      if (nextZoom !== this.state.zoom) {
-        // Notice: Check zoom equality here,
-        // or it will fire zoom_changed event infinitely
-        this.setState({
-          zoom: nextZoom
-        });
-      }
+		const nextZoom = this._map.getZoom();
+		if (nextZoom !== this.state.zoom) {
+			// Notice: Check zoom equality here,
+			// or it will fire zoom_changed event infinitely
+			this.setState({
+				zoom: nextZoom
+			});
+		}
     }
 
     render() {
@@ -204,11 +158,11 @@ export default class Map extends Component {
                     }
                     markers={this.props.markers}
                     center={this.props.myLocation}
-                    onMapMounted={this.handleMapMounted.bind(this)}
                     options={{
                       styles: mapStyles
                     }}
                     zoom={this.state.zoom}
+					onMapMounted={this.handleMapMounted.bind(this)}
                     onZoomChanged={this.handleZoomChanged.bind(this)}
                     onBoundsChanged={this.props.findMarkersInBounds}
                     ref="map"
@@ -216,10 +170,9 @@ export default class Map extends Component {
                     lowest={this.props.lowest}
                     mapTypeControl={false}
                     inViewMarkers={this.props.inViewMarkers}
+					fuelType={this.props.fuelType}
                 />
             </div>
         );
     }
-
-    // https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/Using_geolocation
 }
