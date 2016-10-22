@@ -13,9 +13,17 @@
   	justify-content: flex-start;
     flex-direction: column;
 }
+
+@media screen and (max-width: 800px) {
+  /* Sidebar */
+  .sidebar {
+    width: 100%;
+  }
+}
+
 .sidebar-options {
   width: 100%;
-  background-color: #4c5b62;
+  background-color: #526c79;
   align-self: flex-start;
 }
 
@@ -30,7 +38,10 @@
   margin: 3px;
   padding: 20px;
   border-bottom: 1px solid #2b2f30;
-  display: flex;
+}
+
+.sidebar-location .location-fields {
+    display: flex;
 }
 
 .sidebar-location .Select {
@@ -44,7 +55,14 @@
   cursor: pointer;
   height: 34px;
   width: 34px;
-  margin-left: 15px;
+  margin-right: 15px;
+  display: block;
+  padding: 0;
+  outline: none;
+}
+
+.sidebar-location button:focus img {
+    outline: inherit;
 }
 
 .sidebar-location button.nolocation {
@@ -58,21 +76,40 @@
 }
 
 .sidebar-location button span {
-  position: absolute;
-  bottom: 100%;
-  left: 50%;
-  width: 80px;
-  margin-left: -40px;
-  background-color: #000;
-  color: #FFF;
-  line-height: 24px;
-  border-radius: 5px;
-
-  &:after {
-    content: '';
     position: absolute;
-    top: 100%;
-  }
+    bottom: 100%;
+    left: 50%;
+    width: 120px;
+    margin-left: -60px;
+    margin-bottom: 10px;
+    background-color: #000;
+    color: #FFF;
+    line-height: 24px;
+    border-radius: 5px;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.5s all ease;
+
+    &:after {
+        top: 100%;
+        left: 50%;
+        border: solid transparent;
+        content: " ";
+        height: 0;
+        width: 0;
+        position: absolute;
+        pointer-events: none;
+        border-color: rgba(0, 0, 0, 0);
+        border-top-color: #000;
+        border-width: 6px;
+        margin-left: -6px;
+    }
+}
+
+.sidebar-location button:hover span {
+    opacity: 1;
+    visibility: visible;
 }
 
 /* Fuel type */

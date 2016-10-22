@@ -57,83 +57,107 @@ export default class Header extends Component {
       )
     }
 
-    logIn() {
-      let email = this.refs.email;
-      let password = this.refs.password;
+    logIn(e) {
+        e.preventDefault();
+        let email = this.refs.email;
+        let password = this.refs.password;
 
-      auth.signInWithEmailAndPassword(email.value, password.value).then(() => {
-  		  this.setState({
-  			  user: true
-  		  });
-  		  // Close modal
-  		  this.closeModal();
-  	  }).catch(error => {
-  		  console.log("Error code", error.code, "Error message", error.message);
-        this.setState({
-          errorMessage: error.message
-        })
-  	  });
+        auth.signInWithEmailAndPassword(email.value, password.value).then(() => {
+            this.setState({
+                user: true
+            });
+            // Close modal
+            this.closeModal();
+        }).catch(error => {
+            console.log("Error code", error.code, "Error message", error.message);
+            this.setState({
+                errorMessage: error.message
+            })
+        });
 
-      email.value = '';
-      password.value = '';
+        email.value = '';
+        password.value = '';
     }
 
-    signUp() {
-      let email = this.refs.email;
-      let password = this.refs.password;
+    signUp(e) {
+        e.preventDefault();
 
-      auth.createUserWithEmailAndPassword(email.value, password.value).then(() => {
-  		  this.setState({
-  			  user: true
-  		  });
-  		  // Close modal
-  		  this.closeModal();
-  	  }).catch(error => {
-        this.setState({
-          errorMessage: error.message
-        })
-  	  });
+        let email = this.refs.email;
+        let password = this.refs.password;
+
+        auth.createUserWithEmailAndPassword(email.value, password.value).then(() => {
+            this.setState({
+                user: true
+            });
+            // Close modal
+            this.closeModal();
+        }).catch(error => {
+            this.setState({
+                errorMessage: error.message
+            })
+        });
     }
 
     logOut() {
-  		auth.signOut().then(() => {
-  			// Sign-out successful.
-  			this.setState({
-  				user: false
-  			});
-  		}).catch(error => {
-        this.setState({
-          errorMessage: error.message
-        })
-		  });
+        auth.signOut().then(() => {
+            // Sign-out successful.
+            this.setState({
+                user: false
+            });
+        }).catch(error => {
+            this.setState({
+                errorMessage: error.message
+            })
+        });
+    }
+
+    renderEditProfile() {
+      return (
+        <div className="popup-holder">
+            <div className="popup-content">
+              <button className="close" onClick={() => this.closeModal()}>close</button>
+              <form>
+                { this.state.errorMessage ? `<div class="message bad">${this.state.errorMessage}</div>` : `` }
+                <div className="field text">
+                  <label>Preferred Fuel Type:</label>
+                  <input type="text" ref="fueltype" />
+                </div>
+                <div className="Actions">
+                  <button onClick={ this.logIn.bind(this)}>
+                    Save Profile
+                  </button>
+                </div>
+              </form>
+            </div>
+        </div>
+      )
     }
 
     renderSignUpForm() {
       return (
         <div className="popup-holder">
-          <form>
-            { this.state.errorMessage ? `<div class="message bad">${this.state.errorMessage}</div>` : `` }
-            <div className="field text">
-              <label>Email:</label>
-              <input type="email" ref="email" />
+            <div className="popup-content">
+              <button className="close" onClick={() => this.closeModal()}>close</button>
+              <form>
+                { this.state.errorMessage ? `<div class="message bad">${this.state.errorMessage}</div>` : `` }
+                <div className="field text">
+                  <label>Email:</label>
+                  <input type="email" ref="email" />
+                </div>
+                <div className="field text">
+                  <label>Password:</label>
+                  <input type="password" ref="password" />
+                </div>
+                <div className="Actions">
+                  <button onClick={ this.logIn.bind(this)}>
+                    Log In
+                  </button>
+                  <button onClick={this.signUp.bind(this)}>
+                    Sign Up
+                  </button>
+                </div>
+              </form>
             </div>
-            <div className="field text">
-              <label>Password:</label>
-              <input type="password" ref="password" />
-            </div>
-            <div className="Actions">
-              <button
-                onClick={() => this.logIn()}
-              >
-                Log In
-              </button>
-              <button
-                onClick={() => this.signUp()}
-              >
-                Sign Up
-              </button>
-            </div>
-          </form>
         </div>
       )
     }
@@ -155,19 +179,12 @@ export default class Header extends Component {
                 <Modal
                   isOpen={this.state.modalIsOpen}
                   onAfterOpen={this.afterOpenModal()}
-                  // onRequestClose={requestCloseFn}
-                  // closeTimeoutMS={n}
                   shouldCloseOnOverlayClick={true}
                   contentLabel="No Overlay Click Modal"
                   className="modal"
                   overlayClassName="modal-overlay"
                 >
                   { this.renderSignUpForm() }
-                  <button
-                    onClick={() => this.closeModal()}
-                  >
-                    Close Modal
-                  </button>
                 </Modal>
             </header>
         )

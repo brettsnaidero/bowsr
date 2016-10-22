@@ -85,7 +85,7 @@ export default class App extends Component {
                 }
 
                 self.setState({
-				            usingGeoLocation: true,
+				    usingGeoLocation: true,
                     myLocation: myLocation
                 });
 

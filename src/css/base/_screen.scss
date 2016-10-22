@@ -26,7 +26,7 @@ body, html, select, input, textarea {
 .main {
     height: calc(100vh - 72px);
     display: flex;
-    /*flex-direction: row-reverse;*/
+    flex-direction: row-reverse;
 }
 
 /* Map */
@@ -44,11 +44,5 @@ body, html, select, input, textarea {
   .map {
     width:  100%;
     height: calc(100vh - 72px);
-  }
-  /* Sidebar */
-  .sidebar {
-    width: 100%;
-    height: 0;
-    overflow: hidden;
   }
 }

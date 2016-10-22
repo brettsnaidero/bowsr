@@ -81,7 +81,6 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                 }
                 if (marker.openMarker) {
                     let brand = brandConvert(marker.Brand);
-                    console.log(marker);
                     return (
                         <OverlayView
                             position={{
@@ -95,7 +94,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                             key={key}
                         >
                             <div
-                                className={"marker " + (hasFuel ? "has" : "hasnt")}
+                                className={"marker bringtofront withtail " + (hasFuel ? "has" : "hasnt")}
                                 style={{ zIndex: key }}
                             >
                                 <div className="open-marker">
@@ -106,7 +105,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                                     <div className="name" style={{ backgroundColor: color }}>{marker.Name}</div>
                                     <div className="price"><span>{price}</span> cents per litre</div>
                                     <div className="distance">{marker.Distance}km from your location</div>
-                                    <div className="goto" target="_blank"><a href={`https://maps.google.com?daddr=${marker.Address}`} title="Get directions">Get directions to {escape(marker.Name)}</a></div>
+                                    <div className="goto" target="_blank"><a href={`https://maps.google.com?daddr=${escape(marker.Name)}`} title="Get directions">Get directions to {marker.Name}</a></div>
                                     {/* <div className="brand">
                                         <img src={mapIcons[brand]} alt={brand} />
                                     </div> */}
@@ -151,7 +150,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                             key={key}
                         >
                             <div
-                                className={"marker " + (hasFuel ? "has" : "hasnt")}
+                                className={"marker" + (props.zoom > 15 ? " withtail " : " withsmalltail ") + (hasFuel ? " has " : " hasnt ")}
                                 style={{ zIndex: key }}
                                 onClick={() => { props.markerClick(marker) }}
                             >

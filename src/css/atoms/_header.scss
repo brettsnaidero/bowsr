@@ -63,3 +63,9 @@ header button {
 header button:hover {
   background: #3499ec;
 }
+
+@media screen and (max-width: 800px) {
+    header .logo-text {
+        display: none;
+    }
+}

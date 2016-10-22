@@ -1,12 +1,12 @@
 .ReactModal__Overlay {
-  position: fixed;
-  top: 0px;
-  left: 0px;
-  right: 0px;
-  bottom: 0px;
-  z-index: 3;
-  overflow-y: auto;
-  background: linear-gradient(180deg,hsla(0,0%,100%,.9) 0,rgba(218,240,247,.9));
+    position: fixed;
+    top: 0px;
+    left: 0px;
+    right: 0px;
+    bottom: 0px;
+    z-index: 3;
+    overflow-y: auto;
+    background: linear-gradient(to bottom, rgba(#4d5d61,0.75) 0%, rgba(#2b2f30,0.75) 100%);
 }
 
 .ReactModal__Overlay--after-open {
@@ -37,27 +37,31 @@
     margin: 40px 20px;
     display: table-cell;
     vertical-align: middle;
-    pointer-events: none;
 }
 
 .popup-content {
     position: relative;
     margin: 0 auto;
     pointer-events: all;
+    background: #FFFFFF;
+    max-width: 800px;
+    box-shadow: 0px 1px 10px rgba(0,0,0,0.25);
+    border-radius: 5px;
+    padding: 20px;
 }
 
 .ReactModal__Overlay.ReactModal__Overlay--after-open {
-    background: linear-gradient(180deg,hsla(0,0%,100%,.9) 0,rgba(218,240,247,.9));
+
 }
 
 .ReactModal__Content button.close {
     position: absolute;
-    top: 32px;
-    right: 32px;
+    top: -80px;
+    right: 0;
     width: 48px;
     height: 48px;
     border: none;
-    background: rgba(107,136,151,.25);
+    background: rgba(0,0,0,0.5);
     border-radius: 50%;
     -webkit-transform: rotate(45deg);
     transform: rotate(45deg);
@@ -68,4 +72,45 @@
     cursor: pointer;
     outline: none;
     pointer-events: all;
+}
+
+.ReactModal__Content button.close:before {
+    content: '';
+    height: 2px;
+    width: 16px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -1px;
+    margin-left: -8px;
+}
+
+.ReactModal__Content button.close:after {
+    content: '';
+    height: 16px;
+    width: 2px;
+    background: #FFFFFF;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -8px;
+    margin-left: -1px;
+}
+
+.ReactModal__Content button.close:hover {
+    background: #0493d8;
+}
+
+.ReactModal__Content button.close:focus {
+    background: #0493d8;
+    box-shadow: 0 0 5px #0493d8;
+}
+
+.ReactModal__Content button.close:hover,
+.ReactModal__Content button.close:focus {
+    &:before,
+    &:after {
+        background-color: #FFFFFF;
+    }
 }
