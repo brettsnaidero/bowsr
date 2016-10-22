@@ -14,7 +14,7 @@ export default class InView extends Component {
     }
 
     componentWillReceiveProps() {
-      if (this.state.sortType == 'price') {
+      if (this.state.sortType === 'price') {
         this.sortByCheapest();
       } else {
         this.sortByNearest();
@@ -25,22 +25,23 @@ export default class InView extends Component {
     		let self = this;
 
     		function compare(a,b) {
-    			let priceA = a.Prices.find(x => x.FuelType == self.props.fuelType).Price;
-    			let priceB = b.Prices.find(x => x.FuelType == self.props.fuelType).Price;
+    			let priceA = a.Prices.find(x => x.FuelType === self.props.fuelType).Price;
+    			let priceB = b.Prices.find(x => x.FuelType === self.props.fuelType).Price;
     			if (priceA > priceB) {
     				return -1;
     			}
     			if (priceA < priceB) {
     				return 1;
-    				return 0;
     			}
     		}
     		if (this.props.inViewMarkers) {
     			// Remove markers for petrol stations not stocking the specified fuel type
     			let sortedMarkers = this.props.inViewMarkers.filter(marker => {
-    				if ( marker.Prices.find(x => x.FuelType == self.props.fuelType) ) {
-    					return marker.Prices.find(x => x.FuelType == self.props.fuelType).Price;
-    				}
+    				if ( marker.Prices.find(x => x.FuelType === self.props.fuelType) ) {
+    					return marker.Prices.find(x => x.FuelType === self.props.fuelType).Price;
+    				} else {
+                        return null;
+                    }
     			});
     			// Sort those markers
     			sortedMarkers = sortedMarkers.sort(compare);

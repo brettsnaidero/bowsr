@@ -32,7 +32,7 @@ export default class Location extends Component {
                 onChange={this.updateValue.bind(this)}
             />
     				<button onClick={this.props.getLocation} className={this.props.usingGeoLocation ? "location" : "nolocation"}>
-                <img src={locationMarker} />
+                        <img src={locationMarker} alt="Location" />
       					{ this.props.usingGeoLocation ? <span>Using location</span> : <span>Not using location</span> }
     				</button>
           </div>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { GoogleMap, Marker, OverlayView, withGoogleMap } from 'react-google-maps';
+import { GoogleMap, OverlayView, withGoogleMap } from 'react-google-maps';
 
 import _ from 'lodash';
 // import createHistory from './'
@@ -10,116 +10,166 @@ import Pin from '../images/pin.svg'; /* User location pin icon  */
 import mapIcons from '../utils/map-icons';
 import brandConvert from '../utils/brand-convert';
 
-const PetrolStationsGoogleMap = withGoogleMap(props => (
-    <GoogleMap
-        defaultCenter={{
-            lat: props.center.lat,
-            lng: props.center.lng
-        }}
-        defaultOptions={{
-          styles: mapStyles
-        }}
-        onMapMounted={props.handleMapMounted}
-        onZoomChanged={props.onZoomChanged}
-        onBoundsChanged={props.onBoundsChanged}
-        zoom={props.zoom}
-        ref={props.onMapMounted}
-        mapTypeControl={false}
-        inViewMarkers={props.inViewMarkers}
-    >
-        {/* Location Marker */}
-        <Marker
-            icon={{
-              url: Pin,
-              anchor: {
-                x: 29,
-                y: 58
-              },
-              scaledSize: {
-                width: 58,
-                height: 58
-              },
-              size: {
-                width: 58,
-                height: 58
-              }
-            }}
-            draggable={true}
-            position={{
+const PetrolStationsGoogleMap = withGoogleMap(props => {
+    return (
+        <GoogleMap
+            defaultCenter={{
                 lat: props.center.lat,
                 lng: props.center.lng
             }}
-            key="location-marker"
-            highest={props.highest}
-            lowest={props.lowest}
-        ></Marker>
-		{_.map(props.inViewMarkers, (marker, key) => {
-			let color;
-            let diff = (props.highest - props.lowest) / 3;
-			let price;
-			let hasFuel = false;
-			if (marker.Prices.find(x => x.FuelType == props.fuelType)) {
-				price = marker.Prices.find(x => x.FuelType == props.fuelType).Price;
-				hasFuel = true;
-			}
-			if (price) {
-				if (price >= (props.lowest + (diff * 2))) {
-					color = "#f43b5f";
-				}  else if (price >= (props.lowest + (diff * 1))) {
-					color = "#bc5ff2";
-				} else if (price >= props.lowest) {
-					color = "#5a6cf2";
-				}
-			} else {
-				price = `No ${props.fuelType}`;
-				color = `#000000`;
-			}
-
-			if (props.zoom < 13) {
-				return (
-					<OverlayView
-						position={{
-							lat: marker.Lat,
-							lng: marker.Long
-						}}
-						mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-						getPixelPositionOffset={(width, height) => {
-							return { x: -(width / 2), y: -(height / 2) };
-						}}
-						key={key}
-					>
-					  <div className={"small-marker " + (hasFuel ? "has" : "hasnt")} style={{ backgroundColor: color, zIndex: key }}></div>
-					</OverlayView>
-				)
-			} else {
-				let brand = brandConvert(marker.Brand);
-				return (
-					<OverlayView
-						position={{
-							lat: marker.Lat,
-							lng: marker.Long
-						}}
-						mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
-						getPixelPositionOffset={(width, height) => {
-							return { x: -(width / 2), y: -(height) };
-						}}
-						key={key}
-					>
-						<div className={"marker " + (hasFuel ? "has" : "hasnt")} style={{ zIndex: key }}>
-							<div className={props.zoom > 15 ? "huge-marker" : "big-marker"}>
-								<div className="price" style={{ backgroundColor: color }}>{price}</div>
-								<div className="brand">
-									<img src={mapIcons[brand]} />
-								</div>
-								<div className="tooltip--tip"></div>
-							</div>
-						</div>
-					</OverlayView>
-				)
-			}
-		})}
-    </GoogleMap>
-));
+            defaultOptions={{
+              styles: mapStyles
+            }}
+            onMapMounted={props.handleMapMounted}
+            onZoomChanged={props.onZoomChanged}
+            onBoundsChanged={props.onBoundsChanged}
+            zoom={props.zoom}
+            ref={props.onMapMounted}
+            mapTypeControl={false}
+            inViewMarkers={props.inViewMarkers}
+            markerClicked={props.markerClicked}
+        >
+            {/* Location Marker */}
+            <OverlayView
+                position={{
+                    lat: props.center.lat,
+                    lng: props.center.lng
+                }}
+                mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                getPixelPositionOffset={(width, height) => {
+                    return { x: -(width / 2), y: -(height / 2) };
+                }}
+            >
+                <div className="radius"></div>
+            </OverlayView>
+            <OverlayView
+                position={{
+                    lat: props.center.lat,
+                    lng: props.center.lng
+                }}
+                mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                getPixelPositionOffset={(width, height) => {
+                    return { x: -(width / 2), y: -(height) };
+                }}
+                draggable={true}
+            >
+                <div style={{ height: "58px", width: "58px" }}>
+                    <img src={Pin} alt="Pin" />
+                </div>
+            </OverlayView>
+            {/* Petrol Station Markers */}
+            {_.map(props.inViewMarkers, (marker, key) => {
+                let color;
+                let diff = (props.highest - props.lowest) / 3;
+                let price;
+                let hasFuel = false;
+                if (marker.Prices.find(x => x.FuelType === props.fuelType)) {
+                    price = marker.Prices.find(x => x.FuelType === props.fuelType).Price;
+                    hasFuel = true;
+                }
+                if (price) {
+                    if (price >= (props.lowest + (diff * 2))) {
+                        color = `#f43b5f`;
+                    }  else if (price >= (props.lowest + (diff * 1))) {
+                        color = `#bc5ff2`;
+                    } else if (price >= props.lowest) {
+                        color = `#5a6cf2`;
+                    }
+                } else {
+                    price = `No ${props.fuelType}`;
+                    color = `#000000`;
+                }
+                if (marker.openMarker) {
+                    let brand = brandConvert(marker.Brand);
+                    console.log(marker);
+                    return (
+                        <OverlayView
+                            position={{
+                                lat: marker.Lat,
+                                lng: marker.Long
+                            }}
+                            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                            getPixelPositionOffset={(width, height) => {
+                                return { x: -(width / 2), y: -(height) };
+                            }}
+                            key={key}
+                        >
+                            <div
+                                className={"marker " + (hasFuel ? "has" : "hasnt")}
+                                style={{ zIndex: key }}
+                            >
+                                <div className="open-marker">
+                                    <button
+                                        className="close-marker"
+                                        onClick={() => { props.closeMarker(marker) }}
+                                    ><div className="icon">Close</div></button>
+                                    <div className="name" style={{ backgroundColor: color }}>{marker.Name}</div>
+                                    <div className="price"><span>{price}</span> cents per litre</div>
+                                    <div className="distance">{marker.Distance}km from your location</div>
+                                    <div className="goto" target="_blank"><a href={`https://maps.google.com?daddr=${marker.Address}`} title="Get directions">Get directions to {escape(marker.Name)}</a></div>
+                                    {/* <div className="brand">
+                                        <img src={mapIcons[brand]} alt={brand} />
+                                    </div> */}
+                                    <div className="tooltip--tip"></div>
+                                </div>
+                            </div>
+                        </OverlayView>
+                    )
+                }
+                if (props.zoom < 13) {
+                    return (
+                        <OverlayView
+                            position={{
+                                lat: marker.Lat,
+                                lng: marker.Long
+                            }}
+                            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                            getPixelPositionOffset={(width, height) => {
+                                return { x: -(width / 2), y: -(height / 2) };
+                            }}
+                            key={key}
+                        >
+                          <div
+                              className={"small-marker " + (hasFuel ? "has" : "hasnt")}
+                              style={{ backgroundColor: color, zIndex: key }}
+                              onClick={() => { props.markerClick(marker) }}
+                          ></div>
+                        </OverlayView>
+                    )
+                } else {
+                    let brand = brandConvert(marker.Brand);
+                    return (
+                        <OverlayView
+                            position={{
+                                lat: marker.Lat,
+                                lng: marker.Long
+                            }}
+                            mapPaneName={OverlayView.OVERLAY_MOUSE_TARGET}
+                            getPixelPositionOffset={(width, height) => {
+                                return { x: -(width / 2), y: -(height) };
+                            }}
+                            key={key}
+                        >
+                            <div
+                                className={"marker " + (hasFuel ? "has" : "hasnt")}
+                                style={{ zIndex: key }}
+                                onClick={() => { props.markerClick(marker) }}
+                            >
+                                <div className={props.zoom > 15 ? "huge-marker" : "big-marker"}>
+                                    <div className="price" style={{ backgroundColor: color }}>{price}</div>
+                                    <div className="brand">
+                                        <img src={mapIcons[brand]} alt={brand} />
+                                    </div>
+                                    <div className="tooltip--tip"></div>
+                                </div>
+                            </div>
+                        </OverlayView>
+                    )
+                }
+            })}
+        </GoogleMap>
+    )
+});
 
 export default class Map extends Component {
     constructor(props) {
@@ -176,6 +226,8 @@ export default class Map extends Component {
                     mapTypeControl={false}
                     inViewMarkers={this.props.inViewMarkers}
 					fuelType={this.props.fuelType}
+                    markerClick={this.props.markerClick}
+                    closeMarker={this.props.closeMarker}
                 />
             </div>
         );

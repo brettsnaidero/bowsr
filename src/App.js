@@ -149,6 +149,11 @@ export default class App extends Component {
                 lat: marker.Lat,
                 lng: marker.Long
             }
+            if (marker.ServiceStationID === this.state.openMarker) {
+                marker.openMarker = true;
+            } else {
+                marker.openMarker = false;
+            }
             if (bounds.contains(position)) {
                 inViewMarkers.push(marker);
             }
@@ -171,8 +176,8 @@ export default class App extends Component {
 
         _.map(this.state.inViewMarkers, (marker, index) => {
 			let price;
-			if (marker.Prices.find(x => x.FuelType == fuelType)) {
-				price = marker.Prices.find(x => x.FuelType == fuelType).Price;
+			if (marker.Prices.find(x => x.FuelType === fuelType)) {
+				price = marker.Prices.find(x => x.FuelType === fuelType).Price;
 			}
 			if (price) {
 				if ( price > highest || highest == null ) {
@@ -192,6 +197,22 @@ export default class App extends Component {
           highest: highest,
           average: average
         });
+    }
+
+    markerClick(marker) {
+        this.setState({
+            openMarker: marker.ServiceStationID
+        }, () => {
+            this.findMarkersInBounds();
+        })
+    }
+
+    closeMarker(marker) {
+        this.setState({
+            openMarker: null
+        }, () => {
+            this.findMarkersInBounds();
+        })
     }
 
     render() {
@@ -223,6 +244,8 @@ export default class App extends Component {
   					  getLocation={this.getLocation.bind(this)}
   					  changeLocation={this.changeLocation}
 					  fuelType={this.state.fuelType}
+                      markerClick={this.markerClick.bind(this)}
+                      closeMarker={this.closeMarker.bind(this)}
                     />
                 </div>
             </div>
