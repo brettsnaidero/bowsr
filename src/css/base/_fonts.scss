@@ -1,5 +1,5 @@
 @font-face {
-    font-family: stag-light;
+    font-family: 'stag';
     src: url(../fonts/hinted-StagSansApp-Light.eot);
     src: url(../fonts/hinted-StagSansApp-Light.eot?#iefix) format("embedded-opentype"),url(../fonts/hinted-StagSansApp-Light.woff) format("woff"),url(../fonts/StagSansApp-Light.ttf) format("truetype");
     font-weight: 300;
@@ -7,7 +7,7 @@
 }
 
 @font-face {
-    font-family: stag-normal;
+    font-family: 'stag';
     src: url(../fonts/hinted-StagSansApp-Book.eot);
     src: url(../fonts/hinted-StagSansApp-Book.eot?#iefix) format("embedded-opentype"),url(../fonts/hinted-StagSansApp-Book.woff) format("woff"),url(../fonts/StagSansApp-Book.ttf) format("truetype");
     font-weight: 400;
@@ -15,17 +15,17 @@
 }
 
 @font-face {
-    font-family: stag-medium;
+    font-family: 'stag';
     src: url(../fonts/hinted-StagSansApp-Medium.eot);
     src: url(../fonts/hinted-StagSansApp-Medium.eot?#iefix) format("embedded-opentype"),url(../fonts/hinted-StagSansApp-Medium.woff) format("woff"),url(../fonts/StagSansApp-Medium.ttf) format("truetype");
-    font-weight: 500;
+    font-weight: bold;
     font-style: normal
 }
 
 @font-face {
-    font-family: stag-semibold;
+    font-family: 'stag';
     src: url(../fonts/hinted-StagSansApp-Semibold.eot);
     src: url(../fonts/hinted-StagSansApp-Semibold.eot?#iefix) format("embedded-opentype"),url(../fonts/hinted-StagSansApp-Semibold.woff) format("woff"),url(../fonts/hinted-StagSansApp-Semibold.ttf) format("truetype");
-    font-weight: 600;
+    font-weight: 900;
     font-style: normal
 }

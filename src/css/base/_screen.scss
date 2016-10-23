@@ -2,8 +2,8 @@
     box-sizing: border-box;
 }
 
-body, html, select, input, textarea {
-	font-family: stag, sans-serif;
+body, html, select, input, textarea, button {
+	font-family: 'stag', sans-serif;
 }
 
 .app {
@@ -38,11 +38,11 @@ body, html, select, input, textarea {
 
 @media screen and (max-width: 800px) {
   .main {
-      height: calc(100vh - 72px);
+      height: calc(100vh - 234px);
       flex-wrap: wrap;
   }
   .map {
     width:  100%;
-    height: calc(100vh - 72px);
+    height: calc(100vh - 234px);
   }
 }
