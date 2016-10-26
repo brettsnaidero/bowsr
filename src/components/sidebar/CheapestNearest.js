@@ -14,10 +14,15 @@ export default class CheapestNearest extends Component {
         }
     }
 
+    clickStation(markerID) {
+      let marker = document.querySelector(`#marker${markerID}`);
+      marker.click();
+    }
+
     render() {
         return (
             <div className="sidebar-bottom">
-              <h3>Cheapest in view:</h3>
+              {/* <h3>Cheapest in view:</h3> */}
               { this.findCheapest() }
             </div>
         )
@@ -37,7 +42,7 @@ export default class CheapestNearest extends Component {
             });
             let brand = brandConvert(inViewMarkers[lowestIndex].Brand);
             return (
-              <div className="sidebar-station">
+              <div className="sidebar-station" onClick={() => this.clickStation(inViewMarkers[lowestIndex].ServiceStationID)}>
                   <div className="icon">
                     <img src={mapIcons[brand]} alt={brand} />
                   </div>

@@ -94,6 +94,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                             key={key}
                         >
                             <div
+                                id={"marker" + marker.ServiceStationID}
                                 className={"marker bringtofront withtail " + (hasFuel ? "has" : "hasnt")}
                                 style={{ zIndex: key }}
                             >
@@ -129,6 +130,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                             key={key}
                         >
                           <div
+                              id={"marker" + marker.ServiceStationID}
                               className={"small-marker " + (hasFuel ? "has" : "hasnt")}
                               style={{ backgroundColor: color, zIndex: key }}
                               onClick={() => { props.markerClick(marker) }}
@@ -150,6 +152,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                             key={key}
                         >
                             <div
+                                id={"marker" + marker.ServiceStationID}
                                 className={"marker" + (props.zoom > 15 ? " withtail " : " withsmalltail ") + (hasFuel ? " has " : " hasnt ")}
                                 style={{ zIndex: key }}
                                 onClick={() => { props.markerClick(marker) }}
@@ -180,24 +183,24 @@ export default class Map extends Component {
     }
 
     handleMapMounted(map) {
-		this._map = map;
+		    this._map = map;
     }
 
     componentDidMount() {
         let self = this;
 
-		self.props.getLocation();
+		    self.props.getLocation();
     }
 
     handleZoomChanged() {
-		const nextZoom = this._map.getZoom();
-		if (nextZoom !== this.state.zoom) {
-			// Notice: Check zoom equality here,
-			// or it will fire zoom_changed event infinitely
-			this.setState({
-				zoom: nextZoom
-			});
-		}
+  		const nextZoom = this._map.getZoom();
+  		if (nextZoom !== this.state.zoom) {
+  			// Notice: Check zoom equality here,
+  			// or it will fire zoom_changed event infinitely
+  			this.setState({
+  				zoom: nextZoom
+  			});
+  		}
     }
 
     render() {
@@ -216,7 +219,7 @@ export default class Map extends Component {
                       styles: mapStyles
                     }}
                     zoom={this.state.zoom}
-					onMapMounted={this.handleMapMounted.bind(this)}
+					          onMapMounted={this.handleMapMounted.bind(this)}
                     onZoomChanged={this.handleZoomChanged.bind(this)}
                     onBoundsChanged={this.props.findMarkersInBounds}
                     ref="map"
@@ -224,7 +227,7 @@ export default class Map extends Component {
                     lowest={this.props.lowest}
                     mapTypeControl={false}
                     inViewMarkers={this.props.inViewMarkers}
-					fuelType={this.props.fuelType}
+					          fuelType={this.props.fuelType}
                     markerClick={this.props.markerClick}
                     closeMarker={this.props.closeMarker}
                 />

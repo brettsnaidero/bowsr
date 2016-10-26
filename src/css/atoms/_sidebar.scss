@@ -133,6 +133,14 @@
   border-top: 1px solid #cccccc;
   align-items: center;
   justify-content: flex-start;
+  cursor: pointer;
+  position: relative;
+  left: 0px;
+  transition: 0.25s all ease;
+
+  // &:hover {
+  //   left: -10px;
+  // }
 }
 
 .sidebar-station .icon {

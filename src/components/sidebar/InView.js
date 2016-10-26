@@ -55,6 +55,15 @@ export default class InView extends Component {
 
     }
 
+    hoverStation(markerID) {
+      let marker = document.querySelector(`#marker${markerID}`);
+    }
+
+    clickStation(markerID) {
+      let marker = document.querySelector(`#marker${markerID}`);
+      marker.click();
+    }
+
     render() {
       return (
         <div className="location-inview">
@@ -82,7 +91,7 @@ export default class InView extends Component {
                   color = `#000000`;
               }
               return (
-                <div className={"sidebar-station " + index} key={index}>
+                <div className={"sidebar-station " + index} key={index} onClick={() => this.clickStation(marker.ServiceStationID)}>
                     <div className="icon">
                       <img src={mapIcons[brand]} alt={brand} />
                     </div>

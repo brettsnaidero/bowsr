@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import './css/style.scss';
 
 import _ from 'lodash';
+import 'whatwg-fetch';
 
 // import db from './db';
 // import createHistory from 'history';
@@ -29,16 +30,16 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-			markers: null,
-			inViewMarkers: null,
+    			markers: null,
+    			inViewMarkers: null,
 
-			usingGeoLocation: false,
-			myLocation: {
-				lat: -33.8688,
-				lng: 151.2093
-			},
+    			usingGeoLocation: false,
+    			myLocation: {
+    				lat: -33.8688,
+    				lng: 151.2093
+    			},
 
-			fuelType: 'U91'
+    			fuelType: 'U91'
         }
     }
 
@@ -46,23 +47,35 @@ export default class App extends Component {
         let self = this;
 
         // Prod version
-        // fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=-33.84888823904889&longitude=151.1923455396118&fuelType=U91&brands=SelectAll&radius=900&originLatitude=-32.2315&originLongitude=148.6330`)
-        //     .then( res => res.json() )
-        //     .then(data => {
-        //         this.setState({
-        //             markers: data
-        //         });
-        //     })
-        //     .error(err => {
-        //          console.log(err);
-        //     });
+        fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=-33.84888823904889&longitude=151.1923455396118&fuelType=U91&brands=SelectAll&radius=900&originLatitude=-32.2315&originLongitude=148.6330`)
+        // // fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=-33.84888823904889&longitude=151.1923455396118`)
+          .then( res => {
+              if(res.ok) {
+                return res.json();
+              } else {
+                console.log('Network response was not ok.');
+                window.alert('Could not connect, the petrol price service could be experiencing downtime, or you may not be connected to the internet. Please try again later.');
+              }
+          })
+          .then(data => {
+              self.setState({
+                  markers: data
+              }, () => {
+                self.findMarkersInBounds();
+              });
+          })
+          .error(err => {
+             console.log(err);
+             // Local version
+             self.setState({
+                 markers: TestData
+             });
+          });
 
         // Local version
-        self.setState({
-            markers: TestData
-        });
-
-        self.calculateThings();
+        // self.setState({
+        //     markers: TestData
+        // });
     }
 
   	getLocation() {
@@ -85,7 +98,7 @@ export default class App extends Component {
                 }
 
                 self.setState({
-				    usingGeoLocation: true,
+				            usingGeoLocation: true,
                     myLocation: myLocation
                 });
 
@@ -101,7 +114,7 @@ export default class App extends Component {
                         lat: -33.8688,
                         lng: 151.2093
                     }
-                })
+                });
             };
 
             navigator.geolocation.getCurrentPosition(success, error, options);
@@ -161,9 +174,9 @@ export default class App extends Component {
 
         this.setState({
             inViewMarkers: inViewMarkers
+        }, () => {
+            this.calculateThings();
         });
-
-        this.calculateThings();
     }
 
     calculateThings() {
@@ -172,30 +185,29 @@ export default class App extends Component {
         let total = 0;
         let length = 1;
         let average = 0;
-		let fuelType = this.state.fuelType;
-
+		    let fuelType = this.state.fuelType;
         _.map(this.state.inViewMarkers, (marker, index) => {
-			let price;
-			if (marker.Prices.find(x => x.FuelType === fuelType)) {
-				price = marker.Prices.find(x => x.FuelType === fuelType).Price;
-			}
-			if (price) {
-				if ( price > highest || highest == null ) {
-	                highest = price;
-	            }
-	            if ( price < lowest || lowest == null ) {
-	                lowest = price;
-	            }
-	            length++;
-	            total += price;
-			}
+    			let price;
+    			if (marker.Prices.find(x => x.FuelType === fuelType)) {
+    				price = marker.Prices.find(x => x.FuelType === fuelType).Price;
+    			}
+    			if (price) {
+    				if ( price > highest || highest == null ) {
+                highest = price;
+            }
+            if ( price < lowest || lowest == null ) {
+                lowest = price;
+            }
+            length++;
+            total += price;
+    			}
         });
         average = total / (length - 1);
 
         this.setState({
-          lowest: lowest,
-          highest: highest,
-          average: average
+            lowest: lowest,
+            highest: highest,
+            average: average
         });
     }
 
@@ -205,6 +217,9 @@ export default class App extends Component {
         }, () => {
             this.findMarkersInBounds();
         })
+
+        // Center map on user location
+    		this.refs.map._map.panTo({ lat: marker.Lat, lng: marker.Long });
     }
 
     closeMarker(marker) {
@@ -212,7 +227,7 @@ export default class App extends Component {
             openMarker: null
         }, () => {
             this.findMarkersInBounds();
-        })
+        });
     }
 
     render() {
@@ -226,11 +241,11 @@ export default class App extends Component {
                       highest={this.state.highest}
                       average={this.state.average}
                       inViewMarkers={this.state.inViewMarkers}
-  					  usingGeoLocation={this.state.usingGeoLocation}
-  					  getLocation={this.getLocation.bind(this)}
+  					          usingGeoLocation={this.state.usingGeoLocation}
+  					          getLocation={this.getLocation.bind(this)}
                       changeLocation={this.changeLocation.bind(this)}
                       changeFuelType={this.changeFuelType.bind(this)}
-					  fuelType={this.state.fuelType}
+					            fuelType={this.state.fuelType}
                     />
                     <Map
                       ref='map'
@@ -241,9 +256,9 @@ export default class App extends Component {
                       average={this.state.average}
                       findMarkersInBounds={this.findMarkersInBounds.bind(this)}
                       inViewMarkers={this.state.inViewMarkers}
-  					  getLocation={this.getLocation.bind(this)}
-  					  changeLocation={this.changeLocation}
-					  fuelType={this.state.fuelType}
+                      getLocation={this.getLocation.bind(this)}
+                      changeLocation={this.changeLocation}
+                      fuelType={this.state.fuelType}
                       markerClick={this.markerClick.bind(this)}
                       closeMarker={this.closeMarker.bind(this)}
                     />
