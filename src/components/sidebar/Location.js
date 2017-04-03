@@ -26,19 +26,20 @@ export default class Location extends Component {
           <div className="sidebar-location">
             <h3>Location:</h3>
             <div className="location-fields">
+                <Select
+                    name="form-field-name"
+                    ref="fueltype"
+                    placeholder="Select location..."
+                    options={postcodes}
+                    value={this.state.selectedValue}
+                    onChange={this.updateValue.bind(this)}
+                />
                 <div>
                     <button onClick={this.props.getLocation} className={this.props.usingGeoLocation ? "location" : "nolocation"}>
                         <img src={locationMarker} alt="Location" />
                             { this.props.usingGeoLocation ? <span>Using location</span> : <span>Not using location</span> }
                     </button>
                 </div>
-                <Select
-                    name="form-field-name"
-                    ref="fueltype"
-                    options={postcodes}
-                    value={this.state.selectedValue}
-                    onChange={this.updateValue.bind(this)}
-                />
             </div>
           </div>
         )

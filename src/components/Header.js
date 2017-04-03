@@ -162,6 +162,18 @@ export default class Header extends Component {
       )
     }
 
+    renderAbout() {
+      return (
+        <div className="popup-holder">
+            <div className="popup-content">
+              <button className="close" onClick={() => this.closeModal()}>close</button>
+              <h2>About</h2>
+              <p></p>
+            </div>
+        </div>
+      )
+    }
+
     render() {
         return (
             <header>
@@ -174,7 +186,23 @@ export default class Header extends Component {
                     </div>
                 </div>
                 <div className="user">
-                  { this.state.user ? this.renderLoggedInButtons() : this.renderLoggedOutButtons()}
+                  <button
+                    className="about"
+                    onClick={() => this.openModal()}
+                  >
+                    About Bowser
+                  </button>
+                  <button className={'flip ' + (this.props.mobileShow ? 'flip-map' : 'flip-list')} onClick={this.props.flipMobile}>
+                    { this.props.mobileShow ? (
+                      <div>
+                        Show Map
+                      </div>
+                    ) : (
+                      <div>
+                        Show List
+                      </div>
+                    ) }
+                  </button>
                 </div>
                 <Modal
                   isOpen={this.state.modalIsOpen}
@@ -184,7 +212,7 @@ export default class Header extends Component {
                   className="modal"
                   overlayClassName="modal-overlay"
                 >
-                  { this.renderSignUpForm() }
+                  { this.renderAbout() }
                 </Modal>
             </header>
         )

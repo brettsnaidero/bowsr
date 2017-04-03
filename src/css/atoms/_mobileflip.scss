@@ -1,0 +1,12 @@
+button.flip {
+  display: none;
+}
+
+@media screen and (max-width: 800px) {
+  button.flip {
+    display: inline-block;
+  }
+  button.about {
+    display: none;
+  }
+}

@@ -46,7 +46,10 @@ export default class CheapestNearest extends Component {
                   <div className="icon">
                     <img src={mapIcons[brand]} alt={brand} />
                   </div>
-                  <div className="name">{inViewMarkers[lowestIndex].Name}</div>
+                  <div className="name">
+                    <div className="title">Cheapest nearby</div>
+                    <div>{inViewMarkers[lowestIndex].Name}</div>
+                  </div>
                   <div className="price">{inViewMarkers[lowestIndex].Price}</div>
               </div>
             )

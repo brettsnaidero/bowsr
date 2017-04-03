@@ -39,7 +39,9 @@ export default class App extends Component {
     				lng: 151.2093
     			},
 
-    			fuelType: 'U91'
+    			fuelType: 'U91',
+
+          mobileShow: true
         }
     }
 
@@ -76,6 +78,13 @@ export default class App extends Component {
         // self.setState({
         //     markers: TestData
         // });
+    }
+
+    flipMobile() {
+      let mobileShow = !this.state.mobileShow;
+      this.setState({
+        mobileShow: mobileShow
+      })
     }
 
   	getLocation() {
@@ -233,8 +242,11 @@ export default class App extends Component {
     render() {
         return (
             <div className='app'>
-                <Header />
-                <div className='main'>
+                <Header
+                  flipMobile={this.flipMobile.bind(this)}
+                  mobileShow={this.state.mobileShow}
+                />
+                <div className={'main ' + (this.state.mobileShow ? 'left' : 'right')}>
                     <Sidebar
                       markers={this.state.markers}
                       lowest={this.state.lowest}

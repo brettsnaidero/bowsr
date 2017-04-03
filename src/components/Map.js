@@ -71,9 +71,9 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                     if (price >= (props.lowest + (diff * 2))) {
                         color = `#f43b5f`;
                     }  else if (price >= (props.lowest + (diff * 1))) {
-                        color = `#bc5ff2`;
+                        color = `#5f8ef2`;
                     } else if (price >= props.lowest) {
-                        color = `#5a6cf2`;
+                        color = `#49cd4b`;
                     }
                 } else {
                     price = `No ${props.fuelType}`;

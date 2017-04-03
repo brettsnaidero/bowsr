@@ -26,7 +26,7 @@ body, html, select, input, textarea, button {
 .main {
     height: calc(100vh - 72px);
     display: flex;
-    flex-direction: row-reverse;
+    // flex-direction: row-reverse;
 }
 
 /* Map */
@@ -38,11 +38,28 @@ body, html, select, input, textarea, button {
 
 @media screen and (max-width: 800px) {
   .main {
-      height: calc(100vh - 234px);
       flex-wrap: wrap;
+      overflow: hidden;
+      position: relative;
   }
-  .map {
-    width:  100%;
-    height: calc(100vh - 234px);
+  .main .map {
+      height: calc(100vh - 72px);
+      width: 100%;
+      position: absolute;
+      top: 0%;
+      left: 100%;
+
+      transition: 1s all ease;
+  }
+  .main .sidebar {
+      left: 0%;
+
+      transition: 1s all ease;
+  }
+  .main.right .map {
+    left: 0%;
+  }
+  .main.right .sidebar {
+    left: -100%;
   }
 }
