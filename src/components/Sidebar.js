@@ -28,9 +28,13 @@ export default class Sidebar extends Component {
                   lowest={this.props.lowest}
                   highest={this.props.highest}
                   fuelType={this.props.fuelType}
+                  flipMobile={this.props.flipMobile}
+                  mobileShow={this.props.mobileShow}
                 />
                 <CheapestNearest
                   inViewMarkers={this.props.inViewMarkers}
+                  flipMobile={this.props.flipMobile}
+                  mobileShow={this.props.mobileShow}
                 />
             </div>
         )

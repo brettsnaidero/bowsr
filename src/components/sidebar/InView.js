@@ -62,6 +62,9 @@ export default class InView extends Component {
     clickStation(markerID) {
       let marker = document.querySelector(`#marker${markerID}`);
       marker.click();
+
+      // Move to map view if on mobile
+      this.props.flipMobile();
     }
 
     render() {

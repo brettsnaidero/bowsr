@@ -258,6 +258,8 @@ export default class App extends Component {
                       changeLocation={this.changeLocation.bind(this)}
                       changeFuelType={this.changeFuelType.bind(this)}
 					            fuelType={this.state.fuelType}
+                      flipMobile={this.flipMobile.bind(this)}
+                      mobileShow={this.state.mobileShow}
                     />
                     <Map
                       ref='map'

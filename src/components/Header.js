@@ -168,7 +168,9 @@ export default class Header extends Component {
             <div className="popup-content">
               <button className="close" onClick={() => this.closeModal()}>close</button>
               <h2>About</h2>
-              <p></p>
+              <p>This tool will help find the cheapest fuel, whether in your local area or in any suburb or town in New South Wales, and it will search for the closest and cheapest offering of any particular fuel type, for example E10, Premium or Diesel.</p>
+              <h2>Credit</h2>
+              <p>Site built by <a href="http://brettsnaidero.com" title="">Brett Snaidero</a>.</p>
             </div>
         </div>
       )
@@ -199,7 +201,7 @@ export default class Header extends Component {
                       </div>
                     ) : (
                       <div>
-                        Show List
+                        Show List/Options
                       </div>
                     ) }
                   </button>
