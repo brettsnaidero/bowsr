@@ -50,22 +50,58 @@ header .user {
 header button {
   color: #FFFFFF;
   display: inline-block;
-  padding: 0 20px;
+  padding: 0 16px;
   font-size: 1rem;
-  line-height: 52px;
+  line-height: 56px;
   border: none;
-  margin: 10px 10px 10px 0;
-  height: 52px;
+  margin: 8px 8px 8px 0;
+  height: 56px;
   cursor: pointer;
   border-radius: 5px;
   font-weight: bold;
   background: linear-gradient(to bottom, rgba(#63787d,1) 0%, rgba(#4d5d61,1) 100%);
   // text-shadow: 0px 1px 1px rgba(0,0,0,0.2);
   outline: none;
+	position: relative;
+	overflow: hidden;
+}
+
+header button.withicon {
+	padding: 0 16px 0 56px;
+}
+
+header button svg {
+	fill: #cbd3db;
+	display: block;
+	width: 30px;
+	height: 30px;
+	position: absolute;
+	top: 50%;
+	margin-top: -15px;
+	left: 16px;
 }
 
 header button:hover {
   background: #3499ec;
+
+	svg {
+		fill: #FFF;
+	}
+}
+
+@media screen and (max-width: 460px) {
+		header button.withicon {
+			padding: 0 16px 0 16px;
+			width: 62px;
+
+			span {
+				position: absolute;
+				top: 100%;
+				left: 100%;
+				opacity: 0;
+				visibility: hidden;
+			}
+		}
 }
 
 @media screen and (max-width: 380px) {

@@ -41,7 +41,7 @@ export default class App extends Component {
 
     			fuelType: 'U91',
 
-          mobileShow: true
+          mobileShow: false
         }
     }
 
@@ -73,15 +73,10 @@ export default class App extends Component {
                  markers: TestData
              });
           });
-
-        // Local version
-        // self.setState({
-        //     markers: TestData
-        // });
     }
 
-    flipMobile() {
-      let mobileShow = !this.state.mobileShow;
+    flipMobile(tabChange) {
+			let mobileShow = !this.state.mobileShow;
       this.setState({
         mobileShow: mobileShow
       })

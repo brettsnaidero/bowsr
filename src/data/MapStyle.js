@@ -172,7 +172,7 @@ let mapStyles = [{
     "featureType": "water",
     "elementType": "geometry.fill",
     "stylers": [{
-        "color": "#33c4d7"
+        "color": "#79d8ec"
     }]
 }];
 

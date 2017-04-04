@@ -87,7 +87,7 @@ export default class InView extends Component {
                   }  else if (price >= (this.props.lowest + (diff * 1))) {
                       color = `#5f8ef2`;
                   } else if (price >= this.props.lowest) {
-                      color = `#49cd4b`;
+                      color = `#2db530`;
                   }
               } else {
                   price = `No ${this.props.fuelType}`;
