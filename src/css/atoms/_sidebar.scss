@@ -70,6 +70,11 @@
   opacity: 0.25;
 }
 
+.sidebar-location button.nolocation span {
+  opacity: 0;
+  visibility: hidden;
+}
+
 .sidebar-location button img {
   display: block;
   width: 34px;
@@ -80,17 +85,15 @@
     position: absolute;
     bottom: 100%;
     left: 50%;
-    width: 120px;
-    margin-left: -60px;
+    width: 140px;
+    margin-left: -70px;
     margin-bottom: 10px;
     background-color: #000;
     color: #FFF;
     line-height: 24px;
     border-radius: 5px;
     white-space: nowrap;
-    opacity: 0;
-    visibility: hidden;
-    transition: 0.5s all ease;
+    transition: 1s all ease;
 
     &:after {
         top: 100%;
@@ -108,9 +111,26 @@
     }
 }
 
-.sidebar-location button:hover span {
-    opacity: 1;
-    visibility: visible;
+@media screen and (max-width: 800px) {
+  .sidebar-location button span {
+      bottom: auto;
+      top: 100%;
+      left: auto;
+      right: 0;
+      margin-left: 0;
+      margin-bottom: 0;
+      margin-top: 10px;
+      z-index: 2;
+
+      &:after {
+          top: auto;
+          bottom: 100%;
+          left: auto;
+          right: 10px;
+          border-top-color: rgba(0, 0, 0, 0);
+          border-bottom-color: #000;
+      }
+  }
 }
 
 /* Fuel type */

@@ -172,8 +172,16 @@ let mapStyles = [{
     "featureType": "water",
     "elementType": "geometry.fill",
     "stylers": [{
-        "color": "#79d8ec"
+        "color": "#5dbedb"
     }]
+},{
+    "featureType": "poi",
+    "elementType": "geometry",
+    "stylers": [
+      {
+        "color": "#d0ecd1"
+      }
+    ]
 }];
 
 export default mapStyles;
