@@ -8,8 +8,6 @@ import 'whatwg-fetch';
 // import db from './db';
 // import createHistory from 'history';
 
-import TestData from './data/TestData.json'; /* Local version of petrol data */
-
 // let Users = db.ref('lists');
 // Users.push({
 //   name: '',
@@ -30,16 +28,16 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-    			markers: null,
-    			inViewMarkers: null,
+			markers: null,
+			inViewMarkers: null,
 
-    			usingGeoLocation: false,
-    			myLocation: {
-    				lat: -33.8688,
-    				lng: 151.2093
-    			},
+			usingGeoLocation: false,
+			myLocation: {
+				lat: -33.8688,
+				lng: 151.2093
+			},
 
-    			fuelType: 'U91',
+			fuelType: 'U91',
 
           mobileShow: false
         }
@@ -48,6 +46,11 @@ export default class App extends Component {
     componentDidMount() {
         let self = this;
 
+        this.fetchData();
+    }
+
+    fetchData() {
+        let self = this;
         // Prod version
         fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=-33.84888823904889&longitude=151.1923455396118&fuelType=U91&brands=SelectAll&radius=900&originLatitude=-32.2315&originLongitude=148.6330`)
         // // fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=-33.84888823904889&longitude=151.1923455396118`)
@@ -60,18 +63,15 @@ export default class App extends Component {
               }
           })
           .then(data => {
+              console.log(data);
               self.setState({
                   markers: data
               }, () => {
                 self.findMarkersInBounds();
               });
           })
-          .error(err => {
+          .catch(err => {
              console.log(err);
-             // Local version
-             self.setState({
-                 markers: TestData
-             });
           });
     }
 
@@ -85,6 +85,7 @@ export default class App extends Component {
   	getLocation() {
     		let self = this;
     		// Get user geolocation if available
+            console.log(navigator);
         if ('geolocation' in navigator) {
             /* geolocation is available */
             let options = {
