@@ -201,7 +201,7 @@ export default class Header extends Component {
 													c-2,11,7,23,19,23c3,0,6-1,8-2l53-23c10-4,14-15,10-25S280,319,270,323z"/>
 												<path d="M257,143c15,0,27-12,27-27s-12-27-27-27s-27,12-27,27S242,143,257,143z"/>
 											</svg>
-											<span>About Bowser</span>
+											<span>About</span>
 										</div>
                   </button>
                   <button className={'flip withicon ' + (this.props.mobileShow ? 'flip-map' : 'flip-list')} onClick={this.props.flipMobile}>
