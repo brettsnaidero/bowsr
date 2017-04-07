@@ -90,6 +90,10 @@ header button:hover {
 	}
 }
 
+header button:active {
+	background: linear-gradient(to bottom, rgba(#768e9a,0.65) 0%, rgba(#526c79,0.65) 100%);
+}
+
 @media screen and (max-width: 450px) {
     header .logo-text {
         display: none;

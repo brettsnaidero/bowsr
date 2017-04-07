@@ -127,8 +127,9 @@ export default class App extends Component {
     		this.setState({
     			usingGeoLocation: false,
     			myLocation: newLocation.location
-    		});
-				this.fetchData();
+    		}, () => {
+					this.fetchData();
+				});
     		// Center map on user location
     		this.refs.map._map.panTo(newLocation.location);
   	}
