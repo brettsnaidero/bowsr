@@ -98,7 +98,10 @@ export default class InView extends Component {
                     <div className="icon">
                       <img src={mapIcons[brand]} alt={brand} />
                     </div>
-                    <div className="name">{marker.Name}</div>
+                    <div className="name">
+                      {marker.Name}
+                      <div className="distance">{marker.Distance}km away</div>
+                    </div>
                     <div className="price" style={{ color: color }}>{marker.Price}</div>
                 </div>
               )

@@ -22,6 +22,7 @@ import 'whatwg-fetch';
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Map from './components/Map';
+import MobileBottom from './components/MobileBottom';
 
 export default class App extends Component {
     constructor(props) {
@@ -264,6 +265,20 @@ export default class App extends Component {
                       closeMarker={this.closeMarker.bind(this)}
                     />
                 </div>
+                <MobileBottom
+                  markers={this.state.markers}
+                  lowest={this.state.lowest}
+                  highest={this.state.highest}
+                  average={this.state.average}
+                  inViewMarkers={this.state.inViewMarkers}
+                  usingGeoLocation={this.state.usingGeoLocation}
+                  getLocation={this.getLocation.bind(this)}
+                  changeLocation={this.changeLocation.bind(this)}
+                  changeFuelType={this.changeFuelType.bind(this)}
+                  fuelType={this.state.fuelType}
+                  flipMobile={this.flipMobile.bind(this)}
+                  mobileShow={this.state.mobileShow}
+                />
             </div>
         );
     }

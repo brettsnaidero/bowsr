@@ -38,6 +38,11 @@ body, html, select, input, textarea, button {
 }
 
 @media screen and (max-width: 800px) {
+  .app {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+  }
   .main {
       flex-wrap: wrap;
       overflow: hidden;
@@ -45,6 +50,7 @@ body, html, select, input, textarea, button {
   }
   .main .map {
       height: calc(100vh - 72px);
+      height: 100%;
       width: 100%;
       position: absolute;
       top: 0%;

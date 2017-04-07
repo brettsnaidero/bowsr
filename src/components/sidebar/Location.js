@@ -34,6 +34,7 @@ export default class Location extends Component {
                     options={postcodes}
                     value={this.state.selectedValue}
                     onChange={this.updateValue.bind(this)}
+                    className={ this.props.atBottom && 'bottom' }
                 />
                 <div>
                     <button onClick={this.props.getLocation} className={this.props.usingGeoLocation ? "location" : "nolocation"}>

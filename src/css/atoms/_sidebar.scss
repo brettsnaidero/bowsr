@@ -18,7 +18,7 @@
   /* Sidebar */
   .sidebar {
     width: 100%;
-    height: calc(100vh - 72px);
+    // height: calc(100vh - 72px);
   }
 }
 
@@ -37,8 +37,14 @@
 /* Sidebar - Location */
 .sidebar-location {
   margin: 3px;
-  padding: 20px;
+  padding: 15px;
   border-bottom: 1px solid #2b2f30;
+}
+
+@media screen and (max-width: 800px) {
+  .sidebar-options {
+    display: none;
+  }
 }
 
 .sidebar-location .location-fields {
@@ -111,32 +117,10 @@
     }
 }
 
-@media screen and (max-width: 800px) {
-  .sidebar-location button span {
-      bottom: auto;
-      top: 100%;
-      left: auto;
-      right: 0;
-      margin-left: 0;
-      margin-bottom: 0;
-      margin-top: 10px;
-      z-index: 2;
-
-      &:after {
-          top: auto;
-          bottom: 100%;
-          left: auto;
-          right: 10px;
-          border-top-color: rgba(0, 0, 0, 0);
-          border-bottom-color: #000;
-      }
-  }
-}
-
 /* Fuel type */
 .sidebar-fueltype {
     margin: 3px;
-    padding: 20px;
+    padding: 15px;
 }
 
 /* Cheapest */
@@ -177,6 +161,12 @@
 .sidebar-station .name {
     color: #2b2f30;
     margin-right: 20px;
+}
+
+.sidebar-station .name .distance {
+    color: gray;
+    font-size: 12px;
+    margin-top: 5px;
 }
 
 .sidebar-station .name .title {
@@ -227,4 +217,42 @@
     .sidebar-station {
         padding: 10px;
     }
+}
+
+/* Mobile Bottom*/
+.bottom-mobile {
+  width: 100%;
+  background-color: #526c79;
+
+  display: none;
+  text-align: left;
+  height: 64px;
+}
+
+.bottom-mobile .sidebar-location,
+.bottom-mobile .sidebar-fueltype {
+    flex-basis: 50%;
+    padding: 10px;
+    margin: 0;
+}
+
+.bottom-mobile .sidebar-location {
+  border: none;
+  border-right: 1px solid #000;
+}
+
+.bottom-mobile .sidebar-location button {
+  margin-left: 10px;
+}
+
+@media screen and (max-width: 800px) {
+  .bottom-mobile {
+    display: flex;
+    align-items: center;
+    position: relative;
+    z-index: 3;
+  }
+  .bottom-mobile h3 {
+    display: none;
+  }
 }
