@@ -27,10 +27,10 @@ export default class InView extends Component {
     		function compare(a,b) {
     			let priceA = a.Prices.find(x => x.FuelType === self.props.fuelType).Price;
     			let priceB = b.Prices.find(x => x.FuelType === self.props.fuelType).Price;
-    			if (priceA > priceB) {
+    			if (priceA < priceB) {
     				return -1;
     			}
-    			if (priceA < priceB) {
+    			if (priceA > priceB) {
     				return 1;
     			}
     		}

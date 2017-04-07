@@ -90,23 +90,22 @@ header button:hover {
 	}
 }
 
-@media screen and (max-width: 460px) {
-		header button.withicon {
-			padding: 0 16px 0 16px;
-			width: 62px;
-
-			span {
-				position: absolute;
-				top: 100%;
-				left: 100%;
-				opacity: 0;
-				visibility: hidden;
-			}
-		}
-}
-
-@media screen and (max-width: 380px) {
+@media screen and (max-width: 450px) {
     header .logo-text {
         display: none;
     }
+		/*
+			header button.withicon {
+				padding: 0 16px 0 16px;
+				width: 62px;
+
+				span {
+					position: absolute;
+					top: 100%;
+					left: 100%;
+					opacity: 0;
+					visibility: hidden;
+				}
+			}
+			*/
 }

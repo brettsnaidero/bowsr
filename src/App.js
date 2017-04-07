@@ -28,16 +28,16 @@ export default class App extends Component {
         super(props);
 
         this.state = {
-			markers: null,
-			inViewMarkers: null,
+					markers: null,
+					inViewMarkers: null,
 
-			usingGeoLocation: false,
-			myLocation: {
-				lat: -33.8688,
-				lng: 151.2093
-			},
+					usingGeoLocation: false,
+					myLocation: {
+						lat: -33.8688,
+						lng: 151.2093
+					},
 
-			fuelType: 'U91',
+					fuelType: 'U91',
 
           mobileShow: false
         }
@@ -52,8 +52,8 @@ export default class App extends Component {
     fetchData() {
         let self = this;
         // Prod version
-        fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=-33.84888823904889&longitude=151.1923455396118&fuelType=U91&brands=SelectAll&radius=900&originLatitude=-32.2315&originLongitude=148.6330`)
-        // // fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=-33.84888823904889&longitude=151.1923455396118`)
+        fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=${this.state.myLocation.lat}&longitude=${this.state.myLocation.lng}`)
+				//&fuelType=U91&brands=SelectAll&radius=900&originLatitude=-32.2315&originLongitude=148.6330
           .then( res => {
               if(res.ok) {
                 return res.json();
@@ -85,7 +85,6 @@ export default class App extends Component {
   	getLocation() {
     		let self = this;
     		// Get user geolocation if available
-            console.log(navigator);
         if ('geolocation' in navigator) {
             /* geolocation is available */
             let options = {
@@ -109,28 +108,18 @@ export default class App extends Component {
 
                 // Center map on user location
                 self.refs.map._map.panTo(myLocation);
+								self.fetchData();
             };
 
             function error(err) {
                 console.warn('ERROR(' + err.code + '): ' + err.message);
-
-                self.setState({
-                    myLocation: {
-                        lat: -33.8688,
-                        lng: 151.2093
-                    }
+								window.alert('Sorry, could not retrieve your location. Please search for your city or suburb name.');
+								self.setState({
+				            mobileShow: true
                 });
             };
 
             navigator.geolocation.getCurrentPosition(success, error, options);
-        } else {
-            /* geolocation IS NOT available */
-            self.setState({
-                myLocation: {
-                    lat: -33.8688,
-                    lng: 151.2093
-                }
-            })
         }
   	}
 
@@ -139,6 +128,7 @@ export default class App extends Component {
     			usingGeoLocation: false,
     			myLocation: newLocation.location
     		});
+				this.fetchData();
     		// Center map on user location
     		this.refs.map._map.panTo(newLocation.location);
   	}
