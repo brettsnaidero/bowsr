@@ -275,11 +275,17 @@
 }
 
 @media screen and (max-width: 800px) {
+  .app {
+    padding-bottom: 58px;
+  }
   .bottom-mobile {
-    height: 72px;
+    height: 58px;
     display: flex;
     align-items: flex-end;
-    position: relative;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
     z-index: 3;
     flex-wrap: wrap;
   }
@@ -289,6 +295,9 @@
 }
 
 @media screen and (max-width: 400px) {
+  .app {
+    padding-bottom: 117px;
+  }
   .main {
     height: calc(100vh - 72px - 117px);
   }
