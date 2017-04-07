@@ -42,11 +42,13 @@ body, html, select, input, textarea, button {
     display: flex;
     flex-direction: column;
     height: 100vh;
+    overflow: hidden;
   }
   .main {
       flex-wrap: wrap;
       overflow: hidden;
       position: relative;
+      height: 100%;
   }
   .main .map {
       height: calc(100vh - 72px);

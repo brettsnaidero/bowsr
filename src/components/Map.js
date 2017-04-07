@@ -18,7 +18,9 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                 lng: props.center.lng
             }}
             defaultOptions={{
-              styles: mapStyles
+              styles: mapStyles,
+              streetViewControl: false,
+              mapTypeControl: false
             }}
             onMapMounted={props.handleMapMounted}
             onZoomChanged={props.onZoomChanged}
@@ -53,7 +55,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                 }}
                 draggable={true}
             >
-                <div style={{ height: "58px", width: "58px" }}>
+                <div style={{ position: "relative", zIndex: "99", height: "58px", width: "58px" }}>
                     <img src={Pin} alt="Pin" />
                 </div>
             </OverlayView>
@@ -157,7 +159,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                                 style={{ zIndex: key }}
                                 onClick={() => { props.markerClick(marker) }}
                             >
-                                <div className={props.zoom > 15 ? "huge-marker" : "big-marker"}>
+                                <div className={props.zoom > 15 ? "huge-marker" : props.zoom > 13 ? "big-marker" : "kindabig-marker" }>
                                     <div className="price" style={{ backgroundColor: color }}>{price}</div>
                                     <div className="brand">
                                         <img src={mapIcons[brand]} alt={brand} />
@@ -178,7 +180,7 @@ export default class Map extends Component {
         super(props);
 
         this.state = {
-          zoom: 14
+          zoom: 13
         }
     }
 

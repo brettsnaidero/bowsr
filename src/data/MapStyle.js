@@ -32,7 +32,7 @@ let mapStyles = [{
     "featureType": "landscape.natural",
     "elementType": "geometry.fill",
     "stylers": [{
-        "color": "#f5f6f5"
+        "color": "#e8ecee"
     }]
 }, {
     "featureType": "landscape.natural.terrain",
@@ -88,7 +88,9 @@ let mapStyles = [{
     "stylers": [{
         "visibility": "off"
     }]
-}, {
+},
+
+{
     "featureType": "road",
     "elementType": "labels",
     "stylers": [{
@@ -98,17 +100,13 @@ let mapStyles = [{
     "featureType": "road.highway",
     "elementType": "geometry.fill",
     "stylers": [{
-        "saturation": "16"
-    }, {
-        "lightness": "25"
+      "color": "#f3d042"
     }]
 }, {
     "featureType": "road.highway",
     "elementType": "geometry.stroke",
     "stylers": [{
-        "lightness": "100"
-    }, {
-        "visibility": "off"
+        "visibility": "on"
     }]
 }, {
     "featureType": "road.highway",
@@ -119,7 +117,7 @@ let mapStyles = [{
         "lightness": "29"
     }]
 }, {
-    "featureType": "road.highway.controlled_access",
+    "featureType": "road.highway.controlled_access", /* Big Highway */
     "elementType": "geometry.fill",
     "stylers": [{
         "color": "#ffb400"
@@ -129,12 +127,8 @@ let mapStyles = [{
     "elementType": "geometry.fill",
     "stylers": [{
         "visibility": "on"
-    }]
-}, {
-    "featureType": "road.arterial",
-    "elementType": "geometry.stroke",
-    "stylers": [{
-        "visibility": "off"
+    }, {
+      "color": "#9ab4c2"
     }]
 }, {
     "featureType": "road.arterial",
@@ -144,17 +138,21 @@ let mapStyles = [{
     }]
 }, {
     "featureType": "road.local",
-    "elementType": "geometry.stroke",
-    "stylers": [{
-        "visibility": "off"
-    }]
+    "elementType": "geometry.fill",
+    "stylers": [
+      {
+        "color": "#b5c2c9"
+      }
+    ]
 }, {
     "featureType": "road.local",
     "elementType": "labels.icon",
     "stylers": [{
         "visibility": "off"
     }]
-}, {
+},
+
+{
     "featureType": "transit",
     "elementType": "all",
     "stylers": [{
@@ -179,7 +177,7 @@ let mapStyles = [{
     "elementType": "geometry",
     "stylers": [
       {
-        "color": "#d0ecd1"
+        "color": "#d2dde1"
       }
     ]
 }];

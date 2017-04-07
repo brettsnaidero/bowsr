@@ -31,11 +31,12 @@ export default class Sidebar extends Component {
                   flipMobile={this.props.flipMobile}
                   mobileShow={this.props.mobileShow}
                 />
+                {/*
                 <CheapestNearest
                   inViewMarkers={this.props.inViewMarkers}
                   flipMobile={this.props.flipMobile}
                   mobileShow={this.props.mobileShow}
-                />
+                /> */}
             </div>
         )
     }

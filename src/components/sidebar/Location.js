@@ -26,23 +26,42 @@ export default class Location extends Component {
         return (
           <div className="sidebar-location">
             <h3>Location:</h3>
-            <div className="location-fields">
-                <VirtualizedSelect
-                    name="form-field-name"
-                    ref="fueltype"
-                    placeholder="Select location..."
-                    options={postcodes}
-                    value={this.state.selectedValue}
-                    onChange={this.updateValue.bind(this)}
-                    className={ this.props.atBottom && 'bottom' }
-                />
-                <div>
+              { this.props.atBottom ? (
+                <div className="location-fields">
+                  <div>
                     <button onClick={this.props.getLocation} className={this.props.usingGeoLocation ? "location" : "nolocation"}>
                         <img src={locationMarker} alt="Location" />
                             { this.props.usingGeoLocation ? <span>Using current location</span> : <span>Not using location</span> }
                     </button>
+                  </div>
+                    <VirtualizedSelect
+                        name="form-field-name"
+                        ref="fueltype"
+                        options={postcodes}
+                        value={this.state.selectedValue}
+                        onChange={this.updateValue.bind(this)}
+                        className={ this.props.atBottom && 'bottom' }
+                    />
                 </div>
-            </div>
+              ) : (
+                <div className="location-fields">
+                  <VirtualizedSelect
+                      name="form-field-name"
+                      ref="fueltype"
+                      placeholder="Select location..."
+                      options={postcodes}
+                      value={this.state.selectedValue}
+                      onChange={this.updateValue.bind(this)}
+                      className={ this.props.atBottom && 'bottom' }
+                  />
+                  <div>
+                      <button onClick={this.props.getLocation} className={this.props.usingGeoLocation ? "location" : "nolocation"}>
+                          <img src={locationMarker} alt="Location" />
+                              { this.props.usingGeoLocation ? <span>Using current location</span> : <span>Not using location</span> }
+                      </button>
+                  </div>
+                </div>
+              )}
           </div>
         )
     }
