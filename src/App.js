@@ -45,14 +45,12 @@ export default class App extends Component {
 
     componentDidMount() {
         let self = this;
-
-        this.fetchData();
     }
 
     fetchData() {
         let self = this;
         // Prod version
-        fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=${this.state.myLocation.lat}&longitude=${this.state.myLocation.lng}`)
+        fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=${this.state.myLocation.lat}&longitude=${this.state.myLocation.lng}&radius=30`)
 				//&fuelType=U91&brands=SelectAll&radius=900&originLatitude=-32.2315&originLongitude=148.6330
           .then( res => {
               if(res.ok) {
@@ -63,7 +61,6 @@ export default class App extends Component {
               }
           })
           .then(data => {
-              console.log(data);
               self.setState({
                   markers: data
               }, () => {
@@ -104,11 +101,12 @@ export default class App extends Component {
                 self.setState({
 				            usingGeoLocation: true,
                     myLocation: myLocation
-                });
+                }, () => {
+									self.fetchData();
+								});
 
                 // Center map on user location
                 self.refs.map._map.panTo(myLocation);
-								self.fetchData();
             };
 
             function error(err) {
@@ -116,7 +114,9 @@ export default class App extends Component {
 								window.alert('Sorry, could not retrieve your location. Please search for your city or suburb name.');
 								self.setState({
 				            mobileShow: true
-                });
+                }, () => {
+									self.fetchData();
+								});
             };
 
             navigator.geolocation.getCurrentPosition(success, error, options);

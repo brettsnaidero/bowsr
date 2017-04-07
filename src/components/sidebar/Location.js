@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import Select from 'react-select';
+// import Select from 'react-select';
+import VirtualizedSelect from 'react-virtualized-select';
 
 import locationMarker from '../../images/gps-fixed-indicator.svg'
 import postcodes from '../../data/nswpostcodes';
@@ -26,7 +27,7 @@ export default class Location extends Component {
           <div className="sidebar-location">
             <h3>Location:</h3>
             <div className="location-fields">
-                <Select
+                <VirtualizedSelect
                     name="form-field-name"
                     ref="fueltype"
                     placeholder="Select location..."

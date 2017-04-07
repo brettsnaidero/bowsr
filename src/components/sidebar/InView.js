@@ -90,7 +90,7 @@ export default class InView extends Component {
                       color = `#2db530`;
                   }
               } else {
-                  price = `No ${this.props.fuelType}`;
+                  price = `N/A`;
                   color = `#000000`;
               }
               return (

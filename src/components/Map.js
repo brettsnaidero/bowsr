@@ -76,7 +76,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                         color = `#2db530`;
                     }
                 } else {
-                    price = `No ${props.fuelType}`;
+                    price = `N/A`;
                     color = `#000000`;
                 }
                 if (marker.openMarker) {
