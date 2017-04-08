@@ -6,6 +6,7 @@ import Modal from 'react-modal';
 
 import logo from '../images/bowser.svg';
 import logoText from '../images/bowsertext.svg';
+import logoTextMobile from '../images/bowsertext-mobile.svg';
 
 import auth from '../auth';
 
@@ -182,10 +183,13 @@ export default class Header extends Component {
             <header>
                 <div className="logo">
                     <div className="logo-icon">
-                      <img src={logo} className="App-logo" alt="Bowser Icon" />
+                      <img src={logo} className="App-logo" alt="ServoScanner Icon" />
                     </div>
                     <div className="logo-text">
-                      <img src={logoText} className="App-logo" alt="Bowser" />
+                      <img src={logoText} className="App-logo" alt="ServoScanner" />
+                    </div>
+                    <div className="logo-textmobile">
+                      <img src={logoTextMobile} className="App-logo" alt="ServoScanner" />
                     </div>
                 </div>
                 <div className="user">
@@ -204,8 +208,22 @@ export default class Header extends Component {
 											<span>About</span>
 										</div>
                   </button>
-                  <button className={'flip withicon ' + (this.props.mobileShow ? 'flip-map' : 'flip-list')} onClick={this.props.flipMobile}>
-                    { this.props.mobileShow ? (
+                  <button className={'flip withicon ' + (this.props.mobileShow ? 'active' : 'inactive')} onClick={() => this.props.changeMobile(true)}>
+											<div>
+                        <svg viewBox="0 0 500 500">
+                          <path d="M36,387c-19,0-36,16-36,35s17,36,36,36s35-17,35-36S55,387,36,387z"/>
+                          <path d="M36,215c-19,0-36,16-36,35s17,35,36,35s35-16,35-35S55,215,36,215z"/>
+                          <path d="M164,110h303c18,0,33-14,33-32s-15-33-33-33H164c-18,0-33,15-33,33S146,110,164,110z"/>
+                          <path d="M36,42C17,42,0,59,0,78s17,35,36,35s35-16,35-35S55,42,36,42z"/>
+                          <path d="M467,217H164c-18,0-33,15-33,33s15,33,33,33h303c18,0,33-15,33-33S485,217,467,217z"/>
+                          <path d="M467,389H164c-18,0-33,15-33,33s15,33,33,33h303c18,0,33-15,33-33S485,389,467,389z"/>
+                        </svg>
+												<span>
+													List
+												</span>
+											</div>
+                  </button>
+                  <button className={'flip withicon ' + (this.props.mobileShow ? 'inactive' : 'active')} onClick={() => this.props.changeMobile(false)}>
 											<div>
                         <svg viewBox="0 0 487.724 487.724">
                           <path d="M236.925,0.124c-96.9,3.4-177.4,79-186.7,175.5c-1.9,19.3-0.8,38,2.6,55.9l0,0c0,0,0.3,2.1,1.3,6.1
@@ -217,21 +235,6 @@ export default class Header extends Component {
 													Map
 												</span>
 											</div>
-                    ) : (
-											<div>
-                      <svg viewBox="0 0 500 500">
-                        <path d="M36,387c-19,0-36,16-36,35s17,36,36,36s35-17,35-36S55,387,36,387z"/>
-                        <path d="M36,215c-19,0-36,16-36,35s17,35,36,35s35-16,35-35S55,215,36,215z"/>
-                        <path d="M164,110h303c18,0,33-14,33-32s-15-33-33-33H164c-18,0-33,15-33,33S146,110,164,110z"/>
-                        <path d="M36,42C17,42,0,59,0,78s17,35,36,35s35-16,35-35S55,42,36,42z"/>
-                        <path d="M467,217H164c-18,0-33,15-33,33s15,33,33,33h303c18,0,33-15,33-33S485,217,467,217z"/>
-                        <path d="M467,389H164c-18,0-33,15-33,33s15,33,33,33h303c18,0,33-15,33-33S485,389,467,389z"/>
-                      </svg>
-												<span>
-													List
-												</span>
-											</div>
-                    ) }
                   </button>
                 </div>
                 <Modal

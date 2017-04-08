@@ -37,7 +37,9 @@ export default class Location extends Component {
                     <VirtualizedSelect
                         name="form-field-name"
                         ref="fueltype"
+                        placeholder="Search location..."
                         options={postcodes}
+                        clearable={false}
                         value={this.state.selectedValue}
                         onChange={this.updateValue.bind(this)}
                         className={ this.props.atBottom && 'bottom' }
@@ -48,8 +50,9 @@ export default class Location extends Component {
                   <VirtualizedSelect
                       name="form-field-name"
                       ref="fueltype"
-                      placeholder="Select location..."
+                      placeholder="Search location..."
                       options={postcodes}
+                      clearable={false}
                       value={this.state.selectedValue}
                       onChange={this.updateValue.bind(this)}
                       className={ this.props.atBottom && 'bottom' }

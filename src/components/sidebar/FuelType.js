@@ -36,6 +36,8 @@ export default class FuelType extends Component {
                 options={options}
                 value={this.state.selectedValue}
                 onChange={this.updateValue.bind(this)}
+                searchable={false}
+                clearable={false}
                 className={ this.props.atBottom && 'bottom' }
               />
             </div>

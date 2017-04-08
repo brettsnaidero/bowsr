@@ -73,10 +73,16 @@ export default class App extends Component {
           });
     }
 
-    flipMobile(tabChange) {
+    flipMobile() {
 			let mobileShow = !this.state.mobileShow;
       this.setState({
         mobileShow: mobileShow
+      })
+    }
+
+    changeMobile(tabChange) {
+      this.setState({
+        mobileShow: tabChange
       })
     }
 
@@ -232,6 +238,7 @@ export default class App extends Component {
             <div className='app'>
                 <Header
                   flipMobile={this.flipMobile.bind(this)}
+                  changeMobile={this.changeMobile.bind(this)}
                   mobileShow={this.state.mobileShow}
                 />
                 <div className={'main ' + (this.state.mobileShow ? 'left' : 'right')}>

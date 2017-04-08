@@ -35,7 +35,19 @@ header .logo-text {
     margin: 0;
     float: left;
     height: 72px;
-    padding: 24px 8px;
+    padding: 24px 0px;
+}
+
+header .logo-textmobile {
+    margin: 0;
+    float: left;
+    height: 56px;
+    margin: 8px;
+    display: none;
+}
+
+header .logo-textmobile img {
+  height: 56px;
 }
 
 header .logo-text img {
@@ -83,7 +95,8 @@ header button svg {
 	left: 16px;
 }
 
-header button:hover {
+header button.active,
+header button.active:hover {
   background: #3499ec;
 
 	svg {
@@ -91,26 +104,40 @@ header button:hover {
 	}
 }
 
-header button:active {
-	background: linear-gradient(to bottom, rgba(#768e9a,0.65) 0%, rgba(#526c79,0.65) 100%);
+header button:hover {
+	background: linear-gradient(to bottom, rgba(#768e9a,0.75) 0%, rgba(#526c79,0.75) 100%);
+}
+
+@media screen and (max-width: 520px) {
+		header button.withicon {
+			padding: 0 16px 0 16px;
+			width: 62px;
+
+			span {
+				position: absolute;
+				top: 100%;
+				left: 100%;
+				opacity: 0;
+				visibility: hidden;
+			}
+		}
 }
 
 @media screen and (max-width: 450px) {
     header .logo-text {
         display: none;
     }
-		/*
-			header button.withicon {
-				padding: 0 16px 0 16px;
-				width: 62px;
+    header .logo-textmobile {
+        margin-left: 0;
+        display: block;
+    }
+}
 
-				span {
-					position: absolute;
-					top: 100%;
-					left: 100%;
-					opacity: 0;
-					visibility: hidden;
-				}
-			}
-			*/
+@media screen and (max-width: 300px) {
+    header .logo-icon {
+        display: none;
+    }
+    header .logo-textmobile {
+        margin-left: 8px;
+    }
 }
