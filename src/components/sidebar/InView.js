@@ -40,8 +40,8 @@ export default class InView extends Component {
     				if ( marker.Prices.find(x => x.FuelType === self.props.fuelType) ) {
     					return marker.Prices.find(x => x.FuelType === self.props.fuelType).Price;
     				} else {
-                        return null;
-                    }
+              return null;
+            }
     			});
     			// Sort those markers
     			sortedMarkers = sortedMarkers.sort(compare);
@@ -102,7 +102,7 @@ export default class InView extends Component {
                       {marker.Name}
                       <div className="distance">{marker.Distance}km away</div>
                     </div>
-                    <div className="price" style={{ color: color }}>{marker.Price}</div>
+                    <div className="price" style={{ color: color }}>{price}</div>
                 </div>
               )
             })}
