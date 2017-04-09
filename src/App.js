@@ -119,11 +119,7 @@ export default class App extends Component {
             function error(err) {
                 console.warn('ERROR(' + err.code + '): ' + err.message);
 								window.alert('Sorry, could not retrieve your location. Please search for your city or suburb name.');
-								self.setState({
-				            mobileShow: true
-                }, () => {
-									self.fetchData();
-								});
+								self.fetchData();
             };
 
             navigator.geolocation.getCurrentPosition(success, error, options);
