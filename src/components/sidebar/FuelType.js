@@ -6,7 +6,7 @@ export default class FuelType extends Component {
         super(props);
 
         this.state = {
-			    selectedValue: 'U91'
+			    selectedValue: 'E10'
         }
     }
 
@@ -20,11 +20,13 @@ export default class FuelType extends Component {
 
     render() {
     		let options = [
+					{ value: 'E10', label: 'Ethanol 94 (E10)' },
           { value: 'U91', label: 'Unleaded (U91)' },
-          { value: 'P98', label: 'Premium Unleaded (P98)' },
+					{ value: 'P95', label: 'Premium Unleaded 95 (P95)' },
+          { value: 'P98', label: 'Premium Unleaded 98 (P98)' },
           { value: 'DL', label: 'Diesel (DL)' },
           { value: 'LPG', label: 'LPG' },
-          { value: 'PDL', label: 'PDL' }
+          { value: 'PDL', label: 'Premium Diesel' }
     		];
         return (
             <div className="sidebar-fueltype">

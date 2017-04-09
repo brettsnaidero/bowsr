@@ -38,7 +38,7 @@ export default class App extends Component {
 						lng: 151.2093
 					},
 
-					fuelType: 'U91',
+					fuelType: 'E10',
 
           mobileShow: false
         }
