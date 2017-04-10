@@ -21,12 +21,14 @@ export default class FuelType extends Component {
     render() {
     		let options = [
 					{ value: 'E10', label: 'Ethanol 94 (E10)' },
-          { value: 'U91', label: 'Unleaded (U91)' },
-					{ value: 'P95', label: 'Premium Unleaded 95 (P95)' },
-          { value: 'P98', label: 'Premium Unleaded 98 (P98)' },
-          { value: 'DL', label: 'Diesel (DL)' },
-          { value: 'LPG', label: 'LPG' },
-          { value: 'PDL', label: 'Premium Diesel' }
+          { value: 'U91', label: 'Unleaded 91' },
+					{ value: 'E85', label: 'Ethanol 105 (E85)' },
+					{ value: 'P95', label: 'Premium 95' },
+          { value: 'P98', label: 'Premium 98' },
+          { value: 'DL', label: 'Diesel' },
+					{ value: 'PDL', label: 'Premium Diesel' },
+					{ value: 'B20', label: 'Biodiesel 20' },
+          { value: 'LPG', label: 'LPG' }
     		];
         return (
             <div className="sidebar-fueltype">
