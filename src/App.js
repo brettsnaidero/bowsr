@@ -32,6 +32,8 @@ export default class App extends Component {
 					markers: null,
 					inViewMarkers: null,
 
+          apiKey: 'ZVHfquojtog6qMadocy44inUrTwJQ7kX',
+
 					usingGeoLocation: false,
 					myLocation: {
 						lat: -33.8688,
@@ -48,11 +50,28 @@ export default class App extends Component {
         let self = this;
     }
 
+    randomString(length) {
+      let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
+
+      if (! length) {
+        length = Math.floor(Math.random() * chars.length);
+      }
+
+      let str = '';
+      for (var i = 0; i < length; i++) {
+        str += chars[Math.floor(Math.random() * chars.length)];
+      }
+      return str;
+    }
+
+
     fetchData() {
         let self = this;
+        let randomId = this.randomString(5);
+        let now = new Date;
+        let utcTimestamp = now.toUTCString();
         // Prod version
-        fetch(`https://api.onegov.nsw.gov.au/FuelCheckApp/v1/fuel/prices/bylocation?latitude=${this.state.myLocation.lat}&longitude=${this.state.myLocation.lng}&radius=30`)
-				//&fuelType=U91&brands=SelectAll&radius=900&originLatitude=-32.2315&originLongitude=148.6330
+        fetch(`https://api.onegov.nsw.gov.au/FuelPriceCheck/v1/fuel/prices/nearby?apikey=${this.state.apiKey}&transactionid=${randomId}&requesttimestamp=${utcTimestamp}&latitude=${this.state.myLocation.lat}&longitude=${this.state.myLocation.lng}&radius=30`)
           .then( res => {
               if(res.ok) {
                 return res.json();
