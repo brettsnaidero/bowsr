@@ -4,6 +4,7 @@ import './css/style.scss';
 
 import _ from 'lodash';
 import 'whatwg-fetch';
+import moment from 'moment';
 
 // import db from './db';
 // import createHistory from 'history';
@@ -24,6 +25,25 @@ import Sidebar from './components/Sidebar';
 import Map from './components/Map';
 import MobileBottom from './components/MobileBottom';
 
+const oauth = {
+  "refresh_token_expires_in": "0",
+  "api_product_list": "[Fuel Check Portal Api]",
+  "api_product_list_json": [
+    "Fuel Check Portal Api"
+  ],
+  "organization_name": "onegov",
+  "developer.email": "brettsnaidero@hotmail.com",
+  "token_type": "BearerToken",
+  "issued_at": "1498611516218",
+  "client_id": "ZVHfquojtog6qMadocy44inUrTwJQ7kX",
+  "access_token": "zASGe2nvp5eZgvW2mMkhwFvozKXQ",
+  "application_name": "f4e82c12-1dc9-4af3-8d33-1d5b967844a3",
+  "scope": "",
+  "expires_in": "43199",
+  "refresh_count": "0",
+  "status": "approved"
+}
+
 export default class App extends Component {
     constructor(props) {
         super(props);
@@ -33,6 +53,7 @@ export default class App extends Component {
 					inViewMarkers: null,
 
           apiKey: 'ZVHfquojtog6qMadocy44inUrTwJQ7kX',
+          apiSecret: '8xp0mCDn8hBsneO0',
 
 					usingGeoLocation: false,
 					myLocation: {
@@ -64,14 +85,36 @@ export default class App extends Component {
       return str;
     }
 
-
     fetchData() {
         let self = this;
-        let randomId = this.randomString(5);
-        let now = new Date;
-        let utcTimestamp = now.toUTCString();
+        let randomId = this.randomString(6);
+        let timestamp = moment().format('DD/MM/YYYY hh:mm:ss A');
+
+        let base64 = `${window.atob(this.state.apiKey)}:${window.atob(this.state.apiSecret)}`;
+
+        let myRequest = new Request(
+          `https://api.onegov.nsw.gov.au/FuelPriceCheck/v1/fuel/prices/nearby
+            ?apikey=${this.state.apiKey}
+            &transactionid=${randomId}
+            &requesttimestamp=${timestamp}
+            &latitude=${this.state.myLocation.lat}
+            &longitude=${this.state.myLocation.lng}
+            &radius=30
+          `,
+          {
+            method: 'get',
+            headers: new Headers({
+              'Content-Type': 'application/json; charset=utf-8',
+              'Access-Control-Allow-Origin': true,
+              'Authorization': 'Bearer ' + 'zASGe2nvp5eZgvW2mMkhwFvozKXQ'
+            }),
+            mode: 'cors',
+            withCredentials: true
+          }
+        );
+
         // Prod version
-        fetch(`https://api.onegov.nsw.gov.au/FuelPriceCheck/v1/fuel/prices/nearby?apikey=${this.state.apiKey}&transactionid=${randomId}&requesttimestamp=${utcTimestamp}&latitude=${this.state.myLocation.lat}&longitude=${this.state.myLocation.lng}&radius=30`)
+        fetch(myRequest)
           .then( res => {
               if(res.ok) {
                 return res.json();
