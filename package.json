@@ -33,7 +33,7 @@
     "http-proxy-middleware": "0.17.1",
     "jest": "15.1.1",
     "json-loader": "0.5.4",
-    "node-sass": "^3.10.1",
+    "node-sass": "latest",
     "object-assign": "4.1.0",
     "path-exists": "2.1.0",
     "postcss-loader": "0.13.0",
@@ -47,13 +47,12 @@
     "url-loader": "0.5.7",
     "webpack": "1.13.2",
     "webpack-dev-server": "1.16.1",
-    "whatwg-fetch": "1.0.0"
+    "whatwg-fetch": "^1.0.0"
   },
   "dependencies": {
     "firebase": "^3.4.1",
     "history": "^4.3.0",
     "lodash": "^4.16.4",
-    "node-sass": "latest",
     "query-string": "^4.2.3",
     "react": "^15.3.2",
     "react-addons-shallow-compare": "^15.4.2",
@@ -62,7 +61,6 @@
     "react-modal": "^1.5.2",
     "react-select": "^1.0.0-rc.2",
     "react-virtualized-select": "^2.4.0",
-    "whatwg-fetch": "^1.0.0"
   },
   "scripts": {
     "start": "node scripts/start.js",
