@@ -21,6 +21,7 @@ export default class FuelType extends Component {
     render() {
     		let options = [
           { value: 'U91', label: 'Unleaded (U91)' },
+          { value: 'E10', label: 'Ethanol 94 (E10)' },
           { value: 'P98', label: 'Premium Unleaded (P98)' },
           { value: 'DL', label: 'Diesel (DL)' },
           { value: 'LPG', label: 'LPG' },

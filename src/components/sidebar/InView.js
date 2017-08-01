@@ -9,7 +9,8 @@ export default class InView extends Component {
         super(props);
 
         this.state = {
-          sortType: 'price'
+          sortType: 'price',
+          sortedMarkers: []
         }
     }
 
@@ -70,6 +71,8 @@ export default class InView extends Component {
     render() {
       return (
         <div className="location-inview">
+        { this.state.sortedMarkers.length > 0 ? (
+          <div>
             {_.map(this.state.sortedMarkers, (marker, index) => {
               let brand = brandConvert(marker.Brand);
 
@@ -106,6 +109,11 @@ export default class InView extends Component {
                 </div>
               )
             })}
+          </div>
+        ) : (
+          <div className="noresults">Sorry, no petrol stations in view! Please search for your location, or move the map.</div>
+        )}
+
         </div>
       )
     }

@@ -37,7 +37,7 @@ export default class Location extends Component {
                     <VirtualizedSelect
                         name="form-field-name"
                         ref="fueltype"
-                        placeholder="Search location..."
+                        placeholder="Search..."
                         options={postcodes}
                         clearable={false}
                         value={this.state.selectedValue}
@@ -50,7 +50,7 @@ export default class Location extends Component {
                   <VirtualizedSelect
                       name="form-field-name"
                       ref="fueltype"
-                      placeholder="Search location..."
+                      placeholder="Search..."
                       options={postcodes}
                       clearable={false}
                       value={this.state.selectedValue}
