@@ -1,28 +1,10 @@
 import React, { Component } from 'react';
-// import ReactDOM from 'react-dom';
-// import logo from '../images/logo.svg';
 
 import Modal from 'react-modal';
 
 import logo from '../images/bowser.svg';
 import logoText from '../images/bowsertext.svg';
 import logoTextMobile from '../images/bowsertext-mobile.svg';
-
-import auth from '../auth';
-
-// auth.onAuthStateChanged(user => {
-//   if (user) {
-//     // User is signed in.
-//     this.setState({
-//       user: true
-//     });
-//   } else {
-//     // No user is signed in.
-//     this.setState({
-//       user: false
-//     })
-//   }
-// });
 
 export default class Header extends Component {
     constructor(props) {
@@ -56,60 +38,6 @@ export default class Header extends Component {
           </button>
         </div>
       )
-    }
-
-    logIn(e) {
-        e.preventDefault();
-        let email = this.refs.email;
-        let password = this.refs.password;
-
-        auth.signInWithEmailAndPassword(email.value, password.value).then(() => {
-            this.setState({
-                user: true
-            });
-            // Close modal
-            this.closeModal();
-        }).catch(error => {
-            console.log("Error code", error.code, "Error message", error.message);
-            this.setState({
-                errorMessage: error.message
-            })
-        });
-
-        email.value = '';
-        password.value = '';
-    }
-
-    signUp(e) {
-        e.preventDefault();
-
-        let email = this.refs.email;
-        let password = this.refs.password;
-
-        auth.createUserWithEmailAndPassword(email.value, password.value).then(() => {
-            this.setState({
-                user: true
-            });
-            // Close modal
-            this.closeModal();
-        }).catch(error => {
-            this.setState({
-                errorMessage: error.message
-            })
-        });
-    }
-
-    logOut() {
-        auth.signOut().then(() => {
-            // Sign-out successful.
-            this.setState({
-                user: false
-            });
-        }).catch(error => {
-            this.setState({
-                errorMessage: error.message
-            })
-        });
     }
 
     renderEditProfile() {

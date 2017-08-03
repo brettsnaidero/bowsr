@@ -6,20 +6,6 @@ import _ from 'lodash';
 import 'whatwg-fetch';
 import moment from 'moment';
 
-// import db from './db';
-// import createHistory from 'history';
-
-// let Users = db.ref('lists');
-// Users.push({
-//   name: '',
-//
-// })
-// Users.on('value', snapshot => {
-//   this.setState({
-//     users: snapshot.val()
-//   })
-// })
-
 import Header from './components/Header';
 import Sidebar from './components/Sidebar';
 import Map from './components/Map';
@@ -67,10 +53,6 @@ export default class App extends Component {
         }
     }
 
-    componentDidMount() {
-        let self = this;
-    }
-
     randomString(length) {
       let chars = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXTZabcdefghiklmnopqrstuvwxyz'.split('');
 
@@ -90,23 +72,17 @@ export default class App extends Component {
         let randomId = this.randomString(6);
         let timestamp = moment().format('DD/MM/YYYY hh:mm:ss A');
 
-        let base64 = `${window.atob(this.state.apiKey)}:${window.atob(this.state.apiSecret)}`;
+        const base64 = `${window.atob(this.state.apiKey)}:${window.atob(this.state.apiSecret)}`;
+        const fetchUrl = `https://api.onegov.nsw.gov.au/FuelPriceCheck/v1/fuel/prices/nearby?apikey=${this.state.apiKey}&transactionid=${randomId}&requesttimestamp=${timestamp}&latitude=${this.state.myLocation.lat}&longitude=${this.state.myLocation.lng}&radius=30`;
 
         let myRequest = new Request(
-          `https://api.onegov.nsw.gov.au/FuelPriceCheck/v1/fuel/prices/nearby
-            ?apikey=${this.state.apiKey}
-            &transactionid=${randomId}
-            &requesttimestamp=${timestamp}
-            &latitude=${this.state.myLocation.lat}
-            &longitude=${this.state.myLocation.lng}
-            &radius=30
-          `,
-          {
+          './proxy/server.js', {
             method: 'get',
             headers: new Headers({
+              'Target-URL': fetchUrl,
               'Content-Type': 'application/json; charset=utf-8',
               'Access-Control-Allow-Origin': true,
-              'Authorization': 'Bearer ' + 'zASGe2nvp5eZgvW2mMkhwFvozKXQ'
+              'Authorization': 'Bearer zASGe2nvp5eZgvW2mMkhwFvozKXQ'
             }),
             mode: 'cors',
             withCredentials: true
