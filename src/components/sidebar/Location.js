@@ -10,6 +10,7 @@ export default class Location extends Component {
         super(props);
 
         this.state = {
+          selectedValue: undefined
         }
     }
 

@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { GoogleMap, OverlayView, withGoogleMap } from 'react-google-maps';
 
 import _ from 'lodash';
-// import createHistory from './'
 
 import mapStyles from '../data/MapStyle'; /* Styles object for Google map */
 import Pin from '../images/pin.svg'; /* User location pin icon  */
@@ -82,7 +81,7 @@ const PetrolStationsGoogleMap = withGoogleMap(props => {
                     color = `#000000`;
                 }
                 if (marker.openMarker) {
-                    let brand = brandConvert(marker.Brand);
+                    // let brand = brandConvert(marker.Brand);
                     return (
                         <OverlayView
                             position={{

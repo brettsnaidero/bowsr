@@ -56,7 +56,7 @@ export default class InView extends Component {
     }
 
     hoverStation(markerID) {
-      let marker = document.querySelector(`#marker${markerID}`);
+      // let marker = document.querySelector(`#marker${markerID}`);
     }
 
     clickStation(markerID) {
@@ -75,11 +75,11 @@ export default class InView extends Component {
 
               let diff = (this.props.highest - this.props.lowest) / 3;
               let price;
-              let hasFuel = false;
+              // let hasFuel = false;
               let color;
               if (marker.Prices.find(x => x.FuelType === this.props.fuelType)) {
                   price = marker.Prices.find(x => x.FuelType === this.props.fuelType).Price;
-                  hasFuel = true;
+                  // hasFuel = true;
               }
               if (price) {
                   if (price >= (this.props.lowest + (diff * 2))) {

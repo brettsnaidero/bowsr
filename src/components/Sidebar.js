@@ -4,7 +4,6 @@ import _ from 'lodash';
 
 import Location from './sidebar/Location';
 import FuelType from './sidebar/FuelType';
-import CheapestNearest from './sidebar/CheapestNearest';
 import InView from './sidebar/InView';
 
 export default class Sidebar extends Component {
@@ -27,7 +26,6 @@ export default class Sidebar extends Component {
 			            fuelType={this.props.fuelType}
                   lowest={this.props.lowest}
                   highest={this.props.highest}
-                  fuelType={this.props.fuelType}
                   flipMobile={this.props.flipMobile}
                   mobileShow={this.props.mobileShow}
                 />

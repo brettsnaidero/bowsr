@@ -72,7 +72,7 @@ export default class App extends Component {
         let randomId = this.randomString(6);
         let timestamp = moment().format('DD/MM/YYYY hh:mm:ss A');
 
-        const base64 = `${window.atob(this.state.apiKey)}:${window.atob(this.state.apiSecret)}`;
+        // const base64 = `${window.atob(this.state.apiKey)}:${window.atob(this.state.apiSecret)}`;
         const fetchUrl = `https://api.onegov.nsw.gov.au/FuelPriceCheck/v1/fuel/prices/nearby?apikey=${this.state.apiKey}&transactionid=${randomId}&requesttimestamp=${timestamp}&latitude=${this.state.myLocation.lat}&longitude=${this.state.myLocation.lng}&radius=30`;
 
         let myRequest = new Request(
