@@ -22,6 +22,7 @@ export default class Sidebar extends Component {
                     />
                 </div>
                 <InView
+                  prices={this.props.prices}
                   inViewMarkers={this.props.inViewMarkers}
 			            fuelType={this.props.fuelType}
                   lowest={this.props.lowest}
@@ -29,12 +30,6 @@ export default class Sidebar extends Component {
                   flipMobile={this.props.flipMobile}
                   mobileShow={this.props.mobileShow}
                 />
-                {/*
-                <CheapestNearest
-                  inViewMarkers={this.props.inViewMarkers}
-                  flipMobile={this.props.flipMobile}
-                  mobileShow={this.props.mobileShow}
-                /> */}
             </div>
         )
     }
